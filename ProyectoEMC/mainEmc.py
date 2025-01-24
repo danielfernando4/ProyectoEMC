@@ -7,40 +7,67 @@ app = Flask(__name__, template_folder="templates")
 def main():
     return "main"
 
-@app.route("/example")
-def example():
-    return render_template("example.html")
-
 @app.route("/base")
 def base():
     return render_template("base.html")
 
 
 #nuestros endpoints
-@app.route("/catalogoEvento")
-def catalogoEvento():
-    return render_template("catalogEventos.html")
+@app.route("/catalogo-main")
+def catalogoMain():
+    return render_template("catalogo_main.html")
 
-@app.route("/contratoEvento")
-def contratoEvento():
-    return render_template("contratoEventos.html")
+@app.route("/catalogo-form")
+def catalogoForm():
+    return render_template("catalogo_form.html")
 
-@app.route("/cliente")
-def cliente():
-    return render_template("clientes.html")
+@app.route("/clientes-main")
+def clienteMain():
+    return render_template("cliente_main.html")
 
-@app.route("/proveedor")
-def proveedor():
-    return render_template("proovedores.html")
+@app.route("/clientes-form")
+def clienteForm():
+    return render_template("cliente_form.html")
 
-@app.route("/servicio")
-def servicio():
-    return render_template("servicios.html")
+@app.route("/contrato-main")
+def contratoMain():
+    return render_template("contrato_main.html")
 
-@app.route("/empleado")
-def empleado():
-    return render_template("empleados.html")
+@app.route("/contrato-form")
+def contratoForm():
+    return render_template("contrato_form.html")
 
+@app.route("/empleado-main")
+def empleadoMain():
+    return render_template("empleado_main.html")
+
+@app.route("/empleado-form")
+def empleadoForm():
+    return render_template("empleado_form.html")
+
+@app.route("/nomina-main")
+def nominaMain():
+    return render_template("nomina_main.html")
+
+@app.route("/nomina-form")
+def nominaForm():
+    return render_template("nomina_form.html")
+
+@app.route("/proveedor-main")
+def proveedorMain():
+    return render_template("proveedor_main.html")
+
+@app.route("/proveedor-form")
+def proveedorForm():
+    return render_template("proveedor_form.html")
+
+@app.route("/servicio-main")
+def servicioMain():
+    return render_template("servicio_main.html")
+
+@app.route("/servicio-form")
+def servicioForm():
+    return render_template("servicio_form.html")
 
 
 
