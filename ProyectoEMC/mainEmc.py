@@ -21,11 +21,11 @@ def catalogoMain():
 def catalogoForm():
     return render_template("catalogo_form.html")
 
-@app.route("/clientes-main")
+@app.route("/cliente-main")
 def clienteMain():
     return render_template("cliente_main.html")
 
-@app.route("/clientes-form")
+@app.route("/cliente-form")
 def clienteForm():
     return render_template("cliente_form.html")
 
