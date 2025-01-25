@@ -6,11 +6,6 @@ def rutas(app, db):
     def main():
         servicioF = ServicioProveedor.query.all()
         return str(servicioF)
-    
-    @app.route("/test")
-    def test():
-        cliente = Cliente.query.all()
-        return str(cliente)
 
 
     @app.route("/base")

@@ -20,8 +20,8 @@ def create_app():
     # SERVER BARCELONA
     # user    = "sa"
     # pswd    = "P%40ssw0rd"  
-    # srv     = "26.145.122.242\\MSSQLSERVERENTER"
-    # db      = "MADRID_EMC"
+    # srv     = "26.225.244.188\\MSSQLSERVERENTER"
+    # db      = "BARCELONA_EMC"
     
     app = Flask(__name__, template_folder="templates")
     
