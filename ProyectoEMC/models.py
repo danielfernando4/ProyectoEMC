@@ -25,11 +25,11 @@ class ContratoEvento(db.Model):
     __tablename__ = f'CONTRATO_EVENTO_{id_oficina}'
 
     id_contrato = Column(CHAR(7), primary_key=True, nullable=False)
-    id_oficina = Column(CHAR(2), ForeignKey('OFICINA.ID_OFICINA'), primary_key=True, nullable=False)
-    id_evento = Column(CHAR(6), ForeignKey('EVENTO.ID_EVENTO'), nullable=False)
-    id_empleado = Column(CHAR(6), ForeignKey('EMPLEADO.ID_EMPLEADO'), nullable=False)
-    id_cliente = Column(CHAR(7), ForeignKey('CLIENTE.ID_CLIENTE'), nullable=False)
-    id_servicio = Column(CHAR(7), ForeignKey('SERVICIO_PROVEEDOR.ID_SERVICIO'), nullable=False)
+    id_oficina = Column(CHAR(2), ForeignKey('OFICINA.id_oficina'), primary_key=True, nullable=False)
+    id_evento = Column(CHAR(6), ForeignKey('EVENTO.id_evento'), nullable=False)
+    id_empleado = Column(CHAR(6), ForeignKey('EMPLEADO.id_empleado'), nullable=False)
+    id_cliente = Column(CHAR(7), ForeignKey('CLIENTE.id_cliente'), nullable=False)
+    id_servicio = Column(CHAR(7), ForeignKey('SERVICIO_PROVEEDOR.id_servicio'), nullable=False)
     fecha_inicio = Column(DateTime, nullable=False)
     fecha_fin = Column(DateTime, nullable=False)
     presupuesto = Column(Numeric(10, 2), nullable=False)
@@ -41,7 +41,7 @@ class Empleado(db.Model):
     __tablename__ = f'EMPLEADO_{id_oficina}'
 
     id_empleado = Column(CHAR(6), primary_key=True, nullable=False)
-    id_oficina = Column(CHAR(2), ForeignKey('OFICINA.ID_OFICINA'), primary_key=True, nullable=False)
+    id_oficina = Column(CHAR(2), ForeignKey('OFICINA.id_oficina'), primary_key=True, nullable=False)
     nombre_emp = Column(CHAR(40), nullable=False)
     apellido_emp = Column(CHAR(40), nullable=False)
     cargo_emp = Column(CHAR(30), nullable=False)
@@ -64,7 +64,7 @@ class Evento(db.Model):
     __tablename__ = f'EVENTO_{id_oficina}'
 
     id_evento = Column(CHAR(6), primary_key=True, nullable=False)
-    id_oficina = Column(CHAR(2), ForeignKey('OFICINA.ID_OFICINA'), primary_key=True, nullable=False)
+    id_oficina = Column(CHAR(2), ForeignKey('OFICINA.id_oficina'), primary_key=True, nullable=False)
     tipo_evento = Column(CHAR(40), nullable=False)
     costo_referencial = Column(Numeric(10, 2), nullable=False)
 
@@ -81,7 +81,7 @@ class Proveedor(db.Model):
     __tablename__ = f'PROVEEDOR_{id_oficina}'
 
     id_proveedor = Column(CHAR(7), primary_key=True, nullable=False)
-    id_oficina = Column(CHAR(2), ForeignKey('OFICINA.ID_OFICINA'), primary_key=True, nullable=False)
+    id_oficina = Column(CHAR(2), ForeignKey('OFICINA.id_oficina'), primary_key=True, nullable=False)
     nombre_pro = Column(CHAR(50), nullable=False)
     especialidad_pro = Column(CHAR(30), nullable=False)
 
@@ -90,8 +90,8 @@ class ServicioProveedor(db.Model):
     __tablename__ = f'SERVICIO_PROVEEDOR_{id_oficina}'
 
     id_servicio = Column(CHAR(7), primary_key=True, nullable=False)
-    id_oficina = Column(CHAR(2), ForeignKey('OFICINA.ID_OFICINA'), primary_key=True, nullable=False)
-    id_proveedor = Column(CHAR(7), ForeignKey('PROVEEDOR.ID_PROVEEDOR'), nullable=False)
+    id_oficina = Column(CHAR(2), ForeignKey('OFICINA.id_oficina'), primary_key=True, nullable=False)
+    id_proveedor = Column(CHAR(7), ForeignKey('PROVEEDOR.id_proveedor'), nullable=False)
     descripcion_ser = Column(CHAR(40), nullable=False)
     precio_ser = Column(Numeric(10, 2), nullable=False)
     

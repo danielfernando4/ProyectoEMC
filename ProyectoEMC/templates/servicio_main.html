@@ -1,15 +1,51 @@
 {% extends 'base.html'%}
 
-{% block extra_css %} 
+{% block extra_css %}
 {% endblock %}
 
 {% block title%} Servicios {% endblock %}
 
 
-{% block content%} 
-
+{% block content%}
 <h1> Servicios </h1>
+<form action="{{ url_for('servicioForm', id_servicio = 'Agregar') }}" method="GET">
+    <button type="submit">Agregar cliente</button>
+</form>
+<table border="1">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>ID Oficina</th>
+            <th>ID Proveedor</th>
+            <th>Descripción</th>
+            <th>Precio</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for servicio in servicios %}
+        <tr>
+            <td>{{ servicio.id_servicio }}</td>
+            <!-- <td>{{ servicio.id_oficina }}</td> -->
+            <td>OFICINA</td>
+            <td>{{ servicio.id_proveedor }}</td>
+            <td>{{ servicio.descripcion_ser }}</td>
+            <td>{{ servicio.precio_ser }}</td>
+            <td>
+                <form action="{{ url_for('servicioForm', id_servicio = servicio.id_servicio) }}" method="POST"
+                    style="display:inline;">
+                    <button type="submit">Modificar</button>
+                </form>
+                <form action="{{ url_for('eliminar', model = servicio, page = 'servicioMain') }}" method="POST"
+                    style="display:inline;">
+                    <button type="submit">Eliminar</button>
+                </form>
 
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
 {% endblock %}
 
 {% block extra_js %}

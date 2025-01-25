@@ -6,22 +6,22 @@ db = SQLAlchemy()
 
 def create_app():
     # SERVER LOCAL FKN
-    # user    = "admin"
-    # pswd    = "admin"  
-    # srv     = "(localdb)\\ServidorDB"
-    # db      = "dbfool"
+    user    = "admin"
+    pswd    = "admin"  
+    srv     = "(localdb)\\ServidorDB"
+    dbase   = "dbfool"
     
     # SERVER MADRID
-    user    = "sa"
-    pswd    = "P%40ssw0rd"  
-    srv     = "26.145.122.242\\MSSQLSERVERENTER"
-    dbase   = "MADRID_EMC"
+    # user    = "sa"
+    # pswd    = "P%40ssw0rd"  
+    # srv     = "26.145.122.242\\MSSQLSERVERENTER"
+    # dbase   = "MADRID_EMC"
     
     # SERVER BARCELONA
     # user    = "sa"
     # pswd    = "P%40ssw0rd"  
     # srv     = "26.225.244.188\\MSSQLSERVERENTER"
-    # db      = "BARCELONA_EMC"
+    # dbase   = "BARCELONA_EMC"
     
     app = Flask(__name__, template_folder="templates")
     

@@ -1,0 +1,33 @@
+{% extends 'base.html'%}
+
+{% block extra_css %}
+{% endblock %}
+
+{% block title%} Servicios Formulario {% endblock %}
+
+
+{% block content%}
+<form action="{{ url_for('servicioMain')}}" method="POST">
+    <label for="id_servicio">ID:</label>
+    <input type="text" id="id_servicio" name="id_servicio" value="{{ servicio.id_servicio }}" required>
+    <br>
+    <label for="id_oficina">ID Oficina:</label>
+    <input type="text" id="id_oficina" name="id_oficina" value="{{ servicio.id_oficina }}" required>
+    <br>
+    <label for="id_proveedor">ID Proveedor:</label>
+    <input type="text" id="id_proveedor" name="id_proveedor" value="{{ servicio.id_proveedor }}" required>
+    <br>
+    <label for="descripcion_ser">Descripción:</label>
+    <input type="text" id="descripcion_ser" name="descripcion_ser" value="{{ servicio.descripcion_ser }}" required>
+    <br>
+    <label for="precio_ser">Precio:</label>
+    <input type="text" id="precio_ser" name="precio_ser" value="{{ servicio.precio_ser }}" required>
+    <br>
+    <button type="submit">Actualizar</button>
+    <button type="submit">Registrar Datos</button>
+    <button type="button">Cancelar</button>
+</form>
+{% endblock %}
+
+{% block extra_js %}
+{% endblock %}
