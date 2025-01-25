@@ -4,8 +4,14 @@ from models import Cliente, ContratoEvento, Empleado, Evento, Oficina, Proveedor
 def rutas(app, db):
     @app.route("/")
     def main():
+        servicioF = ServicioProveedor.query.all()
+        return str(servicioF)
+    
+    @app.route("/test")
+    def test():
         cliente = Cliente.query.all()
         return str(cliente)
+
 
     @app.route("/base")
     def base():

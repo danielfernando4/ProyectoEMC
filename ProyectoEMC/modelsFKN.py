@@ -3,8 +3,6 @@ from sqlalchemy import Column, CHAR, String, Integer, DateTime, Numeric, Foreign
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 
-# DEPENDIENDO DEL SERVIDOR 
-id_oficina = '01'
 
 # Tabla CLIENTE   
 class Cliente(db.Model):
@@ -20,12 +18,11 @@ class Cliente(db.Model):
     def __repr__(self):
         return f'Cliente {self.nombre_cl} con apellido {self.apellido_cl}'
 
-# Tabla CONTRATO_EVENTO
+# Tabla CONTRATO_DE_EVENTO
 class ContratoEvento(db.Model):
-    __tablename__ = f'CONTRATO_EVENTO_{id_oficina}'
+    __tablename__ = 'CONTRATO_DE_EVENTO'
 
     id_contrato = Column(CHAR(7), primary_key=True, nullable=False)
-    id_oficina = Column(CHAR(2), ForeignKey('OFICINA.ID_OFICINA'), primary_key=True, nullable=False)
     id_evento = Column(CHAR(6), ForeignKey('EVENTO.ID_EVENTO'), nullable=False)
     id_empleado = Column(CHAR(6), ForeignKey('EMPLEADO.ID_EMPLEADO'), nullable=False)
     id_cliente = Column(CHAR(7), ForeignKey('CLIENTE.ID_CLIENTE'), nullable=False)
@@ -38,33 +35,24 @@ class ContratoEvento(db.Model):
 
 # Tabla EMPLEADO
 class Empleado(db.Model):
-    __tablename__ = f'EMPLEADO_{id_oficina}'
+    __tablename__ = 'EMPLEADO'
 
     id_empleado = Column(CHAR(6), primary_key=True, nullable=False)
-    id_oficina = Column(CHAR(2), ForeignKey('OFICINA.ID_OFICINA'), primary_key=True, nullable=False)
+    id_oficina = Column(CHAR(2), ForeignKey('OFICINA.ID_OFICINA'), nullable=False)
     nombre_emp = Column(CHAR(40), nullable=False)
     apellido_emp = Column(CHAR(40), nullable=False)
     cargo_emp = Column(CHAR(30), nullable=False)
     correo_emp = Column(CHAR(100), nullable=False)
     telefono_emp = Column(CHAR(10), nullable=False)
-    
-    def __repr__(self):
-        return f"{self.id_empleado}: Nombre {self.nombre_emp}"
-    
-# Tabla NOMINA_EMPLEADO
-class Nomina(db.Model):
-    __tablename__ = 'NOMINA_EMPLEADO'
-
-    id_empleado = Column(CHAR(6), primary_key=True, nullable=False)
     salario = Column(Numeric(10, 2), nullable=False)
     fecha_contratacion = Column(Date, nullable=False)
 
 # Tabla EVENTO
 class Evento(db.Model):
-    __tablename__ = f'EVENTO_{id_oficina}'
+    __tablename__ = 'EVENTO'
 
     id_evento = Column(CHAR(6), primary_key=True, nullable=False)
-    id_oficina = Column(CHAR(2), ForeignKey('OFICINA.ID_OFICINA'), primary_key=True, nullable=False)
+    id_oficina = Column(CHAR(2), ForeignKey('OFICINA.ID_OFICINA'), nullable=False)
     tipo_evento = Column(CHAR(40), nullable=False)
     costo_referencial = Column(Numeric(10, 2), nullable=False)
 
@@ -78,22 +66,18 @@ class Oficina(db.Model):
 
 # Tabla PROVEEDOR
 class Proveedor(db.Model):
-    __tablename__ = f'PROVEEDOR_{id_oficina}'
+    __tablename__ = 'PROVEEDOR'
 
     id_proveedor = Column(CHAR(7), primary_key=True, nullable=False)
-    id_oficina = Column(CHAR(2), ForeignKey('OFICINA.ID_OFICINA'), primary_key=True, nullable=False)
+    id_oficina = Column(CHAR(2), ForeignKey('OFICINA.ID_OFICINA'), nullable=False)
     nombre_pro = Column(CHAR(50), nullable=False)
     especialidad_pro = Column(CHAR(30), nullable=False)
 
 # Tabla SERVICIO_PROVEEDOR
 class ServicioProveedor(db.Model):
-    __tablename__ = f'SERVICIO_PROVEEDOR_{id_oficina}'
+    __tablename__ = 'SERVICIO_PROVEEDOR'
 
     id_servicio = Column(CHAR(7), primary_key=True, nullable=False)
-    id_oficina = Column(CHAR(2), ForeignKey('OFICINA.ID_OFICINA'), primary_key=True, nullable=False)
     id_proveedor = Column(CHAR(7), ForeignKey('PROVEEDOR.ID_PROVEEDOR'), nullable=False)
     descripcion_ser = Column(CHAR(40), nullable=False)
     precio_ser = Column(Numeric(10, 2), nullable=False)
-    
-    def __repr__(self):
-        return f'Servicio {self.descripcion_ser} con oficina {self.id_oficina}'
