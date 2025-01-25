@@ -1,10 +1,10 @@
-from mainEmc import db
+from app import db
 from sqlalchemy import Column, CHAR, String, Integer, DateTime, Numeric, ForeignKey, Date
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 
 
-# Tabla CLIENTE
+# Tabla CLIENTE   
 class Cliente(db.Model):
     __tablename__ = 'CLIENTE'
 
