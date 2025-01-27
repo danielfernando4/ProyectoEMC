@@ -99,7 +99,7 @@ def rutas(app, db):
             if accion == "agregar":
                 servicioDAC.add(servicio)
             elif accion == "actualizar":
-                servicioDAC.update(id, servicio) 
+                servicioDAC.update(servicio) 
                 
         servicios = servicioDAC.getAll()
         return render_template("servicio_main.html", servicios = servicios)
@@ -108,7 +108,7 @@ def rutas(app, db):
     def servicioForm():
         servicioDAC = ServicioProveedorDAC()
         if request.method == 'POST':
-            servicio = servicioDAC.getById(request.form.get('id_servicio'))
+            servicio = servicioDAC.getById(request.form.get('id_servicio'))[0]
             return render_template("servicio_form.html", servicio = servicio, accion = "actualizar")
         
         return render_template("servicio_form.html", servicio = None, accion = "agregar")

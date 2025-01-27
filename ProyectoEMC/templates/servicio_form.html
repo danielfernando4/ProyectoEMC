@@ -9,7 +9,7 @@
 {% block content%}
 <form action="{{ url_for('servicioMain') }}" method="POST">
     <label for="id_servicio">ID:</label>
-    <input type="text" id="id_servicio" name="id_servicio" value="{{ servicio.id_servicio }}" required>
+    <input type="text" id="id_servicio" name="id_servicio" value="{{ servicio['id_servicio'] }}" required>
     <br>
     <label for="id_oficina">ID Oficina:</label>
     <input type="text" id="id_oficina" name="id_oficina" value="{{ servicio.id_oficina }}" required>
@@ -24,7 +24,6 @@
     <input type="text" id="precio_ser" name="precio_ser" value="{{ servicio.precio_ser }}" required>
     <br>
     <input type="hidden" name="accion" value="{{accion}}">
-    <input type="hidden" name="id" value="{{ servicio.id_servicio }}">
     {% if accion == 'agregar' %}
         <button type="submit">Registrar Datos</button>
     {% elif accion == 'actualizar' %}
