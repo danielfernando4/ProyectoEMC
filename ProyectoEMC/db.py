@@ -27,23 +27,25 @@ class ServicioProveedorDAC:
                 'precio_ser': row[4]
             }
             result.append(item)
-        self.closeConn
+        self.closeConn()
         return result
             
             
     def getById(self, id):
         self.initConn()
+        result = []
         query = "SELECT * FROM SERVICIO_PROVEEDOR_01 WHERE ID_SERVICIO = ?"
         self.cursor.execute(query, id)
         for row in self.cursor.fetchall(): 
             self.closeConn()           
-            return {
+            result.append({
                 'id_servicio': row[0],
                 'id_oficina': row[1],
                 'id_proveedor': row[2],
                 'descripcion_ser': row[3],
                 'precio_ser': row[4]
-            }
+            })
+            return result 
         self.closeConn()
         return None
 
@@ -69,7 +71,7 @@ class ServicioProveedorDAC:
             self.closeConn()
             return False
     
-    def modify(self, id, item):
+    def update(self, id, item):
         self.initConn()
         query = """UPDATE SERVICIO_PROVEEDOR_01 
                    SET ID_SERVICIO = ?, ID_OFICINA = ?, ID_PROVEEDOR = ?, DESCRIPCION_SER = ?, PRECIO_SER = ? 
@@ -93,6 +95,7 @@ class ServicioProveedorDAC:
             return False
     
     def delete(self, id):
+        self.initConn()
         query = "DELETE FROM SERVICIO_PROVEEDOR_01 WHERE ID_SERVICIO = ?"
         try:
             self.cursor.execute(query, id)
@@ -105,13 +108,15 @@ class ServicioProveedorDAC:
             return False
 
 
-# if __name__ == "__main__":         
-    # db = ServicioProveedorDAC()
+if __name__ == "__main__":         
+    db = ServicioProveedorDAC()
     # item = {'id_servicio':'SERV007', 'id_oficina':'01', 'id_proveedor':'PROV002' , 'descripcion_ser':'Nuevo Servicio', 'precio_ser':790.5}
     # response = db.delete('SERV001')
-    # # print(db.getAl())
+    # print(db.getAl())
     # if response:
     #     print("eliminado")
     # else:
-    #     print('error')
-    # print(db.getAll())
+        # print('error')
+    result = db.getById('SERV002')
+    for row in result:
+        print(row)

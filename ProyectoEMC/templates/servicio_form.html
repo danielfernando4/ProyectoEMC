@@ -7,7 +7,7 @@
 
 
 {% block content%}
-<form action="{{ url_for('servicioMain')}}" method="POST">
+<form action="{{ url_for('servicioMain') }}" method="POST">
     <label for="id_servicio">ID:</label>
     <input type="text" id="id_servicio" name="id_servicio" value="{{ servicio.id_servicio }}" required>
     <br>
@@ -23,9 +23,14 @@
     <label for="precio_ser">Precio:</label>
     <input type="text" id="precio_ser" name="precio_ser" value="{{ servicio.precio_ser }}" required>
     <br>
-    <button type="submit">Actualizar</button>
-    <button type="submit">Registrar Datos</button>
-    <button type="button">Cancelar</button>
+    <input type="hidden" name="accion" value="{{accion}}">
+    <input type="hidden" name="id" value="{{ servicio.id_servicio }}">
+    {% if accion == 'agregar' %}
+        <button type="submit">Registrar Datos</button>
+    {% elif accion == 'actualizar' %}
+        <button type="submit">Actualizar Datos</button>
+    {% endif %}
+    <button onclick="history.back()">Cancelar</button>
 </form>
 {% endblock %}
 

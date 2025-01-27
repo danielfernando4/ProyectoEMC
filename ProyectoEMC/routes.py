@@ -1,11 +1,11 @@
 from flask import render_template, request, redirect, url_for
 from modelsFKN import Cliente, ContratoEvento, Empleado, Evento, Oficina, Proveedor, ServicioProveedor
+from db import *
 
 def rutas(app, db):
     @app.route("/")
     def main():
-        servicioF = ServicioProveedor.query.all()
-        return str(servicioF)
+        return f"Error al agregar: dato", 500
 
 
     @app.route("/base")
@@ -64,31 +64,43 @@ def rutas(app, db):
     
     @app.route("/servicio-main", methods = ['POST', 'GET'])
     def servicioMain():
+        servicioDAC = ServicioProveedorDAC()
         if request.method == 'GET':
-            servicios = ServicioProveedor.query.all()
+            servicios = servicioDAC.getAll()
             return render_template("servicio_main.html", servicios = servicios)
         
-        id_servicio = request.form.get('id_servicio')
-        # id_oficina  = request.form.get('id_oficina')
-        id_proveedor = request.form.get('id_proveedor')
-        descripcion_ser = request.form.get('descripcion_ser')
-        precio_ser  = float(request.form.get('precio_ser'))
-        print(id_proveedor)
-        servicio = ServicioProveedor(id_servicio = id_servicio, id_proveedor = id_proveedor, descripcion_ser = descripcion_ser, precio_ser = precio_ser)
-        db.session.add(servicio)
-        db.session.commit()
+        accion = request.form.get('accion')
+        id = request.form.get('id')
         
-        servicios = ServicioProveedor.query.all()
+        if accion == "buscar":
+             servicios = servicioDAC.getById(id)
+             return render_template("servicio_main.html", servicios = servicios)
+         
+        if accion == "eliminar":
+            servicioDAC.delete(id)
+        else:                    
+            servicio = {
+                    'id_servicio': request.form.get('id_servicio'),
+                    'id_oficina': request.form.get('id_oficina'),
+                    'id_proveedor': request.form.get('id_proveedor'),
+                    'descripcion_ser': request.form.get('descripcion_ser'),
+                    'precio_ser': float(request.form.get('precio_ser'))
+            }
+
+            if accion == "agregar":
+                servicioDAC.add(servicio)
+            elif accion == "actualizar":
+                servicioDAC.update(id, servicio) 
+                
+        servicios = servicioDAC.getAll()
         return render_template("servicio_main.html", servicios = servicios)
 
-    @app.route("/servicio-form/<id_servicio>", methods = ['POST', 'GET'])
-    def servicioForm(id_servicio):
+    @app.route("/servicio-form", methods = ['POST', 'GET'])
+    def servicioForm():
+        servicioDAC = ServicioProveedorDAC()
         if request.method == 'POST':
-            servicio = ServicioProveedor.query.filter(ServicioProveedor.id_servicio == id_servicio).first()
-            return render_template("servicio_form.html", servicio = servicio)
+            servicio = servicioDAC.getById(request.form.get('id_servicio'))
+            return render_template("servicio_form.html", servicio = servicio, accion = "actualizar")
         
-        return render_template("servicio_form.html", servicio = None)
+        return render_template("servicio_form.html", servicio = None, accion = "agregar")
     
-    @app.route("/eliminar/<model>/<page>", methods = ['POST', 'GET'])
-    def eliminar(model, page):
-        return redirect(url_for(page))
