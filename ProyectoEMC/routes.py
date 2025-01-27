@@ -240,11 +240,44 @@ def rutas(app, db):
     
     @app.route("/oficina-main", methods = ['POST', 'GET'])
     def oficinaMain():
-        return render_template("oficina_main.html")
+        oficinaDAC = OficinaDAC()
+        if request.method == 'GET':
+            oficinas = oficinaDAC.getAll()
+            return render_template("oficina_main.html", oficinas = oficinas)
+        
+        accion = request.form.get('accion')
+        id = request.form.get('id')
+        
+        if accion == "buscar":
+             oficinas = oficinaDAC.getById(id) if id else oficinaDAC.getAll()
+             return render_template("oficina_main.html", oficinas = oficinas)         
+        
+        if accion == "eliminar":
+            oficinaDAC.delete(id)
+        else:                    
+            oficina = {
+                'id_oficina': request.form.get('id_oficina'),
+                'nombre_of': request.form.get('nombre_of'),
+                'ubicacion': request.form.get('ubicacion'),
+            }
+
+            if accion == "agregar":
+                oficinaDAC.add(oficina)
+            elif accion == "actualizar":
+                oficinaDAC.update(oficina) 
+                
+        oficinas = oficinaDAC.getAll()
+        return render_template("oficina_main.html", oficinas = oficinas)
 
     @app.route("/oficina-form", methods = ['POST', 'GET'])
     def oficinaForm():
-        return render_template("oficina_form.html")
+        oficinaDAC = OficinaDAC()
+        if request.method == 'POST':
+            print('hola ' + request.form.get('id_oficina'))
+            oficina = oficinaDAC.getById(request.form.get('id_oficina'))[0]
+            return render_template("oficina_form.html", oficina = oficina, accion = "actualizar")
+        
+        return render_template("oficina_form.html", oficina = None, accion = "agregar")
     
     @app.route("/servicio-main", methods = ['POST', 'GET'])
     def servicioMain():
