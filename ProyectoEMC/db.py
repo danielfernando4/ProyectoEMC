@@ -358,7 +358,7 @@ class EmpleadoDAC(Conexion):
                 'apellido_emp': row[3],
                 'cargo_emp': row[4],
                 'telefono_emp': row[5],
-                'email_emp': row[6]
+                'correo_emp': row[6]
             }
             result.append(item)
         super().closeConn()
@@ -379,7 +379,7 @@ class EmpleadoDAC(Conexion):
                 'apellido_emp': row[3],
                 'cargo_emp': row[4],
                 'telefono_emp': row[5],
-                'email_emp': row[6]
+                'correo_emp': row[6]
             })
             return result
         return None
@@ -387,7 +387,7 @@ class EmpleadoDAC(Conexion):
     def add(self, item):
         super().initConn()
         query = f"""INSERT INTO EMPLEADO_{self.id_oficina} 
-                   (ID_EMPLEADO, ID_OFICINA, NOMBRE_EMP, APELLIDO_EMP, CARGO_EMP, TELEFONO_EMP, EMAIL_EMP) 
+                   (ID_EMPLEADO, ID_OFICINA, NOMBRE_EMP, APELLIDO_EMP, CARGO_EMP, TELEFONO_EMP, CORREO_EMP) 
                    VALUES (?, ?, ?, ?, ?, ?, ?)"""
         try:
             self.cursor.execute(
@@ -398,7 +398,7 @@ class EmpleadoDAC(Conexion):
                 item['apellido_emp'],
                 item['cargo_emp'],
                 item['telefono_emp'],
-                item['email_emp']
+                item['correo_emp']
             )
             self.conn.commit()
             super().closeConn()
@@ -411,7 +411,7 @@ class EmpleadoDAC(Conexion):
     def update(self, item):
         super().initConn()
         query = f"""UPDATE EMPLEADO_{self.id_oficina} 
-                   SET NOMBRE_EMP = ?, APELLIDO_EMP = ?, CARGO_EMP = ?, TELEFONO_EMP = ?, EMAIL_EMP = ? 
+                   SET NOMBRE_EMP = ?, APELLIDO_EMP = ?, CARGO_EMP = ?, TELEFONO_EMP = ?, CORREO_EMP = ? 
                    WHERE ID_EMPLEADO = ?"""
         try:
             self.cursor.execute(
@@ -420,7 +420,7 @@ class EmpleadoDAC(Conexion):
                 item['apellido_emp'],
                 item['cargo_emp'],
                 item['telefono_emp'],
-                item['email_emp'],
+                item['correo_emp'],
                 item['id_empleado']
             )
             self.conn.commit()

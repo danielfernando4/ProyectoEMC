@@ -132,9 +132,7 @@ def rutas(app, db):
             if accion == "agregar":
                 contratoDAC.add(contrato)
             elif accion == "actualizar":
-                print(contrato)
-                response = contratoDAC.update(contrato) 
-                print("resulto" if response else "no modificado")
+                contratoDAC.update(contrato) 
                 
         contratos = contratoDAC.getAll()
         return render_template("contrato_main.html", contratos = contratos)
@@ -150,11 +148,47 @@ def rutas(app, db):
 
     @app.route("/empleado-main", methods = ['POST', 'GET'])
     def empleadoMain():
-        return render_template("empleado_main.html")
+        empleadoDAC = EmpleadoDAC()
+        if request.method == 'GET':
+            empleados = empleadoDAC.getAll()
+            return render_template("empleado_main.html", empleados = empleados)
+        
+        accion = request.form.get('accion')
+        id = request.form.get('id')
+        
+        if accion == "buscar":
+             empleados = empleadoDAC.getById(id) if id else empleadoDAC.getAll()
+             return render_template("empleado_main.html", empleados = empleados)         
+        
+        if accion == "eliminar":
+            empleadoDAC.delete(id)
+        else:                    
+            empleado = {
+                'id_empleado': request.form.get('id_empleado'),
+                'id_oficina': request.form.get('id_oficina'),
+                'nombre_emp': request.form.get('nombre_emp'),
+                'apellido_emp': request.form.get('apellido_emp'),
+                'cargo_emp': request.form.get('cargo_emp'),
+                'telefono_emp': request.form.get('telefono_emp'),
+                'correo_emp': request.form.get('correo_emp'),
+            }
+
+            if accion == "agregar":
+                empleadoDAC.add(empleado)
+            elif accion == "actualizar":
+                empleadoDAC.update(empleado) 
+                
+        empleados = empleadoDAC.getAll()
+        return render_template("empleado_main.html", empleados = empleados)
 
     @app.route("/empleado-form", methods = ['POST', 'GET'])
     def empleadoForm():
-        return render_template("empleado_form.html")
+        empleadoDAC = EmpleadoDAC()
+        if request.method == 'POST':
+            empleado = empleadoDAC.getById(request.form.get('id_empleado'))[0]
+            return render_template("empleado_form.html", empleado = empleado, accion = "actualizar")
+        
+        return render_template("empleado_form.html", empleado = None, accion = "agregar")
 
     @app.route("/nomina-main", methods = ['POST', 'GET'])
     def nominaMain():
