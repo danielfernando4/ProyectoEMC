@@ -192,11 +192,43 @@ def rutas(app, db):
 
     @app.route("/nomina-main", methods = ['POST', 'GET'])
     def nominaMain():
-        return render_template("nomina_main.html")
+        nominaDAC = NominaDAC()
+        if request.method == 'GET':
+            empleados = nominaDAC.getAll()
+            return render_template("nomina_main.html", empleados = empleados)
+        
+        accion = request.form.get('accion')
+        id = request.form.get('id')
+        
+        if accion == "buscar":
+             empleados = nominaDAC.getById(id) if id else nominaDAC.getAll()
+             return render_template("nomina_main.html", empleados = empleados)         
+        
+        if accion == "eliminar":
+            nominaDAC.delete(id)
+        else:                    
+            empleado = {
+                'id_empleado': request.form.get('id_empleado'),
+                'salario': float(request.form.get('salario')),
+                'fecha_contratacion': request.form.get('fecha_contratacion')
+            }
+
+            if accion == "agregar":
+                nominaDAC.add(empleado)
+            elif accion == "actualizar":
+                nominaDAC.update(empleado) 
+                
+        empleados = nominaDAC.getAll()
+        return render_template("nomina_main.html", empleados = empleados)
 
     @app.route("/nomina-form", methods = ['POST', 'GET'])
     def nominaForm():
-        return render_template("nomina_form.html")
+        nominaDAC = NominaDAC()
+        if request.method == 'POST':
+            empleado = nominaDAC.getById(request.form.get('id_empleado'))[0]
+            return render_template("nomina_form.html", empleado = empleado, accion = "actualizar")
+        
+        return render_template("nomina_form.html", empleado = None, accion = "agregar")
 
     @app.route("/proveedor-main", methods = ['POST', 'GET'])
     def proveedorMain():

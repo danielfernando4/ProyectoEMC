@@ -225,6 +225,7 @@ class ClienteDAC(Conexion):
             super().closeConn()
             return False
 
+
 class ContratoEventoDAC(Conexion):
     def getAll(self):
         super().initConn()
@@ -434,6 +435,92 @@ class EmpleadoDAC(Conexion):
     def delete(self, id_empleado):
         super().initConn()
         query = f"DELETE FROM EMPLEADO_{self.id_oficina} WHERE ID_EMPLEADO = ?"
+        try:
+            self.cursor.execute(query, (id_empleado))
+            self.conn.commit()
+            super().closeConn()
+            return True
+        except Exception as ex:
+            print(f"Error capturado: {ex}")
+            super().closeConn()
+            return False
+
+
+class NominaDAC(Conexion):
+    def getAll(self):
+        super().initConn()
+        result = []
+        query = f"SELECT * FROM NOMINA_EMPLEADO"
+        self.cursor.execute(query)
+        for row in self.cursor.fetchall():
+            item = {
+                'id_empleado': row[0],
+                'salario': row[1],
+                'fecha_contratacion': row[2]
+            }
+            result.append(item)
+        super().closeConn()
+        return result
+
+    def getById(self, id_empleado):
+        super().initConn()
+        result = []
+        query = f"SELECT * FROM NOMINA_EMPLEADO WHERE ID_EMPLEADO = ?"
+        self.cursor.execute(query, (id_empleado))
+        row = self.cursor.fetchone()
+        super().closeConn()
+        if row:
+            result.append({
+                'id_empleado': row[0],
+                'salario': row[1],
+                'fecha_contratacion': row[2]
+            })
+            return result
+        return None
+
+    def add(self, item):
+        super().initConn()
+        query = f"""INSERT INTO NOMINA_EMPLEADO 
+                   (ID_EMPLEADO, SALARIO, FECHA_CONTRATACION) 
+                   VALUES (?, ?, ?)"""
+        try:
+            self.cursor.execute(
+                query,
+                item['id_empleado'],
+                item['salario'],
+                item['fecha_contratacion']
+            )
+            self.conn.commit()
+            super().closeConn()
+            return True
+        except Exception as ex:
+            print(f"Error capturado: {ex}")
+            super().closeConn()
+            return False
+
+    def update(self, item):
+        super().initConn()
+        query = f"""UPDATE NOMINA_EMPLEADO
+                   SET SALARIO = ?, FECHA_CONTRATACION = ? 
+                   WHERE ID_EMPLEADO = ?"""
+        try:
+            self.cursor.execute(
+                query,
+                item['salario'],
+                item['fecha_contratacion'],
+                item['id_empleado']
+            )
+            self.conn.commit()
+            super().closeConn()
+            return True
+        except Exception as ex:
+            print(f"Error capturado: {ex}")
+            super().closeConn()
+            return False
+
+    def delete(self, id_empleado):
+        super().initConn()
+        query = f"DELETE FROM NOMINA_EMPLEADO WHERE ID_EMPLEADO = ?"
         try:
             self.cursor.execute(query, (id_empleado))
             self.conn.commit()

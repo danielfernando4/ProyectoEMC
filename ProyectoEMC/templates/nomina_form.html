@@ -1,0 +1,31 @@
+{% extends 'base.html'%}
+
+{% block extra_css %}
+{% endblock %}
+
+{% block title%} Empleado Formulario {% endblock %}
+
+
+{% block content%}
+<form action="{{ url_for('nominaMain') }}" method="POST">
+    <label for="id_empleado">ID:</label>
+    <input type="text" id="id_empleado" name="id_empleado" value="{{ empleado.id_empleado }}" required>
+    <br>
+    <label for="salario">Salario:</label>
+    <input type="text" id="salario" name="salario" value="{{ empleado.salario }}" required>
+    <br>
+    <label for="fecha_contratacion">Fecha de Contratación:</label>
+    <input type="text" id="fecha_contratacion" name="fecha_contratacion" value="{{ empleado.fecha_contratacion }}" required>
+    <br>
+    <input type="hidden" name="accion" value="{{accion}}">
+    {% if accion == 'agregar' %}
+        <button type="submit">Registrar Datos</button>
+    {% elif accion == 'actualizar' %}
+        <button type="submit">Actualizar Datos</button>
+    {% endif %}
+    <button onclick="history.back()">Cancelar</button>
+</form>
+{% endblock %}
+
+{% block extra_js %}
+{% endblock %}
