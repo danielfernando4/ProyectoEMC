@@ -23,8 +23,7 @@ def rutas(app, db):
         
         accion = request.form.get('accion')
         id = request.form.get('id')
-        print(accion)
-        print(id)
+        
         if accion == "buscar":
              eventos = eventoDAC.getById(id) if id else eventoDAC.getAll()
              return render_template("catalogo_main.html", eventos = eventos)         
@@ -65,8 +64,7 @@ def rutas(app, db):
         
         accion = request.form.get('accion')
         id = request.form.get('id')
-        print(accion)
-        print(id)
+        
         if accion == "buscar":
              clientes = clienteDAC.getById(id) if id else clienteDAC.getAll()
              return render_template("cliente_main.html", clientes = clientes)         
@@ -102,11 +100,53 @@ def rutas(app, db):
     
     @app.route("/contrato-main", methods = ['POST', 'GET'])
     def contratoMain():
-        return render_template("contrato_main.html")
+        contratoDAC = ContratoEventoDAC()
+        if request.method == 'GET':
+            contratos = contratoDAC.getAll()
+            return render_template("contrato_main.html", contratos = contratos)
+        
+        accion = request.form.get('accion')
+        id = request.form.get('id')
+        
+        if accion == "buscar":
+             contratos = contratoDAC.getById(id) if id else contratoDAC.getAll()
+             return render_template("contrato_main.html", contratos = contratos)         
+        
+        if accion == "eliminar":
+            contratoDAC.delete(id)
+        else:                    
+            contrato = {
+                'id_contrato': request.form.get('id_contrato'),
+                'id_oficina': request.form.get('id_oficina'),
+                'id_evento': request.form.get('id_evento'),
+                'id_empleado': request.form.get('id_empleado'),
+                'id_cliente': request.form.get('id_cliente'),
+                'id_servicio': request.form.get('id_servicio'),
+                'fecha_inicio': request.form.get('fecha_inicio'),
+                'fecha_fin': request.form.get('fecha_fin'),
+                'presupuesto': float(request.form.get('presupuesto')),
+                'lugar': request.form.get('lugar'),
+                'estado_contrato': request.form.get('estado_contrato'),
+            }
+
+            if accion == "agregar":
+                contratoDAC.add(contrato)
+            elif accion == "actualizar":
+                print(contrato)
+                response = contratoDAC.update(contrato) 
+                print("resulto" if response else "no modificado")
+                
+        contratos = contratoDAC.getAll()
+        return render_template("contrato_main.html", contratos = contratos)
 
     @app.route("/contrato-form", methods = ['POST', 'GET'])
     def contratoForm():
-        return render_template("contrato_form.html")
+        contratoDAC = ContratoEventoDAC()
+        if request.method == 'POST':
+            contrato = contratoDAC.getById(request.form.get('id_contrato'))[0]
+            return render_template("contrato_form.html", contrato = contrato, accion = "actualizar")
+        
+        return render_template("contrato_form.html", contrato = None, accion = "agregar")
 
     @app.route("/empleado-main", methods = ['POST', 'GET'])
     def empleadoMain():
@@ -149,8 +189,7 @@ def rutas(app, db):
         
         accion = request.form.get('accion')
         id = request.form.get('id')
-        print(accion)
-        print(id)
+        
         if accion == "buscar":
              servicios = servicioDAC.getById(id) if id else servicioDAC.getAll()
              return render_template("servicio_main.html", servicios = servicios)         
