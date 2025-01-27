@@ -62,6 +62,14 @@ def rutas(app, db):
     def proveedorForm():
         return render_template("proveedor_form.html")
     
+    @app.route("/oficina-main")
+    def oficinaMain():
+        return render_template("oficina_main.html")
+
+    @app.route("/oficina-form")
+    def oficinaForm():
+        return render_template("oficina_form.html")
+    
     @app.route("/servicio-main", methods = ['POST', 'GET'])
     def servicioMain():
         servicioDAC = ServicioProveedorDAC()
