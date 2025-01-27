@@ -16,12 +16,46 @@ def rutas(app, db):
     #nuestros endpoints
     @app.route("/catalogo-main", methods = ['POST', 'GET'])
     def catalogoMain():
-        return render_template("catalogo_main.html")
+        eventoDAC = EventoDAC()
+        if request.method == 'GET':
+            eventos = eventoDAC.getAll()
+            return render_template("catalogo_main.html", eventos = eventos)
+        
+        accion = request.form.get('accion')
+        id = request.form.get('id')
+        print(accion)
+        print(id)
+        if accion == "buscar":
+             eventos = eventoDAC.getById(id) if id else eventoDAC.getAll()
+             return render_template("catalogo_main.html", eventos = eventos)         
+        
+        if accion == "eliminar":
+            eventoDAC.delete(id)
+        else:                    
+            evento = {
+                'id_evento': request.form.get('id_evento'),
+                'id_oficina': request.form.get('id_oficina'),
+                'tipo_evento': request.form.get('tipo_evento'),
+                'costo_referencial': float(request.form.get('costo_referencial'))
+            }
+
+            if accion == "agregar":
+                eventoDAC.add(evento)
+            elif accion == "actualizar":
+                eventoDAC.update(evento) 
+                
+        eventos = eventoDAC.getAll()
+        return render_template("catalogo_main.html", eventos = eventos)
 
     @app.route("/catalogo-form", methods = ['POST', 'GET'])
     def catalogoForm():
-        return render_template("catalogo_form.html")
-
+        eventoDAC = EventoDAC()
+        if request.method == 'POST':
+            evento = eventoDAC.getById(request.form.get('id_evento'))[0]
+            return render_template("catalogo_form.html", evento = evento, accion = "actualizar")
+        
+        return render_template("catalogo_form.html", evento = None, accion = "agregar")
+    
     @app.route("/cliente-main", methods = ['POST', 'GET'])
     def clienteMain():
         clienteDAC = ClienteDAC()
