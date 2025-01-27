@@ -1,9 +1,26 @@
 import pyodbc
-
-class ServicioProveedorDAC:
+class Conexion:
     def initConn(self):
+        # SERVER LOCAL FKN
+        user    = "admin"
+        pswd    = "admin"  
+        srvr    = "(localdb)\\ServidorDB"
+        dbase   = "MADRID_EMC"
+        
+        # SERVER MADRID
+        # user    = "sa"
+        # pswd    = "P%40ssw0rd"  
+        # srvr    = "26.145.122.242\\MSSQLSERVERENTER"
+        # dbase   = "MADRID_EMC"
+
+        # SERVER BARCELONA
+        # user    = "sa"
+        # pswd    = "P%40ssw0rd"  
+        # srvr    = "26.225.244.188\\MSSQLSERVERENTER"
+        # dbase   = "BARCELONA_EMC"
+        
         self.conn = pyodbc.connect(
-            'DRIVER={ODBC Driver 17 for SQL Server};SERVER=(localdb)\ServidorDB;DATABASE=MADRID_EMC;UID=admin;PWD=admin'
+            f'DRIVER={{ODBC Driver 17 for SQL Server}};SERVER={srvr};DATABASE={dbase};UID={user};PWD={pswd}'           
         )
         self.cursor = self.conn.cursor()
         
@@ -12,9 +29,10 @@ class ServicioProveedorDAC:
             self.cursor.close()
         if self.conn:
             self.conn.close()
-        
+    
+class ServicioProveedorDAC(Conexion):          
     def getAll(self):
-        self.initConn()
+        super().initConn()
         result = []
         query = "SELECT * FROM SERVICIO_PROVEEDOR_01"
         self.cursor.execute(query)
@@ -27,17 +45,17 @@ class ServicioProveedorDAC:
                 'precio_ser': row[4]
             }
             result.append(item)
-        self.closeConn()
+        super().closeConn()
         return result
             
             
     def getById(self, id):
-        self.initConn()
+        super().initConn()
         result = []
         query = "SELECT * FROM SERVICIO_PROVEEDOR_01 WHERE ID_SERVICIO = ?"
         self.cursor.execute(query, id)
         for row in self.cursor.fetchall(): 
-            self.closeConn()           
+            super().closeConn()           
             result.append({
                 'id_servicio': row[0],
                 'id_oficina': row[1],
@@ -46,11 +64,11 @@ class ServicioProveedorDAC:
                 'precio_ser': row[4]
             })
             return result 
-        self.closeConn()
+        super().closeConn()
         return None
 
     def add(self, item):
-        self.initConn()
+        super().initConn()
         query = """INSERT INTO SERVICIO_PROVEEDOR_01 
                    (ID_SERVICIO, ID_OFICINA, ID_PROVEEDOR, DESCRIPCION_SER, PRECIO_SER) 
                    VALUES (?, ?, ?, ?, ?)"""
@@ -64,15 +82,15 @@ class ServicioProveedorDAC:
                 item['precio_ser'],
             )
             self.conn.commit()    
-            self.closeConn()        
+            super().closeConn()        
             return True
         except Exception as ex:
             print(f"Error capturado: {ex}")
-            self.closeConn()
+            super().closeConn()
             return False
     
     def update(self, id, item):
-        self.initConn()
+        super().initConn()
         query = """UPDATE SERVICIO_PROVEEDOR_01 
                    SET ID_SERVICIO = ?, ID_OFICINA = ?, ID_PROVEEDOR = ?, DESCRIPCION_SER = ?, PRECIO_SER = ? 
                    WHERE ID_SERVICIO = ?"""                   
@@ -87,24 +105,24 @@ class ServicioProveedorDAC:
                 id,
             )
             self.conn.commit()
-            self.closeConn()
+            super().closeConn()
             return True
         except Exception as ex:
             print(f"Error capturado: {ex}")
-            self.closeConn()
+            super().closeConn()
             return False
     
     def delete(self, id):
-        self.initConn()
+        super().initConn()
         query = "DELETE FROM SERVICIO_PROVEEDOR_01 WHERE ID_SERVICIO = ?"
         try:
             self.cursor.execute(query, id)
             self.conn.commit()
-            self.closeConn()
+            super().closeConn()
             return True
         except Exception as ex:
             print(f"Error capturado: {ex}")
-            self.closeConn()
+            super().closeConn()
             return False
 
 
