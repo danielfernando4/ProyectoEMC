@@ -14,59 +14,95 @@ def rutas(app, db):
 
 
     #nuestros endpoints
-    @app.route("/catalogo-main")
+    @app.route("/catalogo-main", methods = ['POST', 'GET'])
     def catalogoMain():
         return render_template("catalogo_main.html")
 
-    @app.route("/catalogo-form")
+    @app.route("/catalogo-form", methods = ['POST', 'GET'])
     def catalogoForm():
         return render_template("catalogo_form.html")
 
-    @app.route("/cliente-main")
+    @app.route("/cliente-main", methods = ['POST', 'GET'])
     def clienteMain():
-        return render_template("cliente_main.html")
+        clienteDAC = ClienteDAC()
+        if request.method == 'GET':
+            clientes = clienteDAC.getAll()
+            return render_template("cliente_main.html", clientes = clientes)
+        
+        accion = request.form.get('accion')
+        id = request.form.get('id')
+        print(accion)
+        print(id)
+        if accion == "buscar":
+             clientes = clienteDAC.getById(id) if id else clienteDAC.getAll()
+             return render_template("cliente_main.html", clientes = clientes)         
+        
+        if accion == "eliminar":
+            clienteDAC.delete(id)
+        else:                    
+            cliente = {
+                'id_cliente': request.form.get('id_cliente'),
+                'nombre_cl': request.form.get('nombre_cl'),
+                'apellido_cl': request.form.get('apellido_cl'),
+                'correo_cl': request.form.get('correo_cl'),
+                'telefono_cl': request.form.get('telefono_cl'),
+                'direccion_cl': request.form.get('direccion_cl')
+            }
 
-    @app.route("/cliente-form")
+            if accion == "agregar":
+                clienteDAC.add(cliente)
+            elif accion == "actualizar":
+                clienteDAC.update(cliente) 
+                
+        clientes = clienteDAC.getAll()
+        return render_template("cliente_main.html", clientes = clientes)
+
+    @app.route("/cliente-form", methods = ['POST', 'GET'])
     def clienteForm():
-        return render_template("cliente_form.html")
-
-    @app.route("/contrato-main")
+        clienteDAC = ClienteDAC()
+        if request.method == 'POST':
+            cliente = clienteDAC.getById(request.form.get('id_cliente'))[0]
+            return render_template("cliente_form.html", cliente = cliente, accion = "actualizar")
+        
+        return render_template("cliente_form.html", cliente = None, accion = "agregar")
+    
+    @app.route("/contrato-main", methods = ['POST', 'GET'])
     def contratoMain():
         return render_template("contrato_main.html")
 
-    @app.route("/contrato-form")
+    @app.route("/contrato-form", methods = ['POST', 'GET'])
     def contratoForm():
         return render_template("contrato_form.html")
 
-    @app.route("/empleado-main")
+    @app.route("/empleado-main", methods = ['POST', 'GET'])
     def empleadoMain():
         return render_template("empleado_main.html")
 
-    @app.route("/empleado-form")
+    @app.route("/empleado-form", methods = ['POST', 'GET'])
     def empleadoForm():
         return render_template("empleado_form.html")
 
-    @app.route("/nomina-main")
+    @app.route("/nomina-main", methods = ['POST', 'GET'])
     def nominaMain():
         return render_template("nomina_main.html")
 
-    @app.route("/nomina-form")
+    @app.route("/nomina-form", methods = ['POST', 'GET'])
     def nominaForm():
         return render_template("nomina_form.html")
 
-    @app.route("/proveedor-main")
+    @app.route("/proveedor-main", methods = ['POST', 'GET'])
     def proveedorMain():
         return render_template("proveedor_main.html")
 
-    @app.route("/proveedor-form")
+    @app.route("/proveedor-form", methods = ['POST', 'GET'])
     def proveedorForm():
         return render_template("proveedor_form.html")
     
-    @app.route("/oficina-main")
+    @app.route("/oficina-main", methods = ['POST', 'GET'])
     def oficinaMain():
         return render_template("oficina_main.html")
 
-    @app.route("/oficina-form")
+    @app.route("/oficina-form", methods = ['POST', 'GET'])
     def oficinaForm():
         return render_template("oficina_form.html")
     

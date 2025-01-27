@@ -150,19 +150,21 @@ class ClienteDAC(Conexion):
 
     def getById(self, id):
         super().initConn()
+        result = []
         query = f"SELECT * FROM CLIENTE WHERE ID_CLIENTE = ?"
         self.cursor.execute(query, id)
         row = self.cursor.fetchone()
         super().closeConn()
         if row:
-            return {
+            result.append({
                 'id_cliente': row[0],
                 'nombre_cl': row[1],
                 'apellido_cl': row[2],
                 'correo_cl': row[3],
                 'telefono_cl': row[4],
                 'direccion_cl': row[5]
-            }
+            })
+            return result
         return None
 
     def add(self, item):
@@ -249,12 +251,13 @@ class ContratoEventoDAC(Conexion):
 
     def getById(self, id_contrato):
         super().initConn()
+        result = []
         query = f"SELECT * FROM CONTRATO_EVENTO_{self.id_oficina} WHERE ID_CONTRATO = ?"
         self.cursor.execute(query, (id_contrato))
         row = self.cursor.fetchone()
         super().closeConn()
         if row:
-            return {
+            result.append({
                 'id_contrato': row[0],
                 'id_oficina': row[1],
                 'id_evento': row[2],
@@ -266,7 +269,8 @@ class ContratoEventoDAC(Conexion):
                 'presupuesto': row[8],
                 'lugar': row[9],
                 'estado_contrato': row[10]
-            }
+            })
+            return result
         return None
 
     def add(self, item):
@@ -362,12 +366,13 @@ class EmpleadoDAC(Conexion):
 
     def getById(self, id_empleado):
         super().initConn()
+        result = []
         query = f"SELECT * FROM EMPLEADO_{self.id_oficina} WHERE ID_EMPLEADO = ?"
         self.cursor.execute(query, (id_empleado))
         row = self.cursor.fetchone()
         super().closeConn()
         if row:
-            return {
+            result.append({
                 'id_empleado': row[0],
                 'id_oficina': row[1],
                 'nombre_emp': row[2],
@@ -375,7 +380,8 @@ class EmpleadoDAC(Conexion):
                 'cargo_emp': row[4],
                 'telefono_emp': row[5],
                 'email_emp': row[6]
-            }
+            })
+            return result
         return None
 
     def add(self, item):
@@ -458,17 +464,19 @@ class EventoDAC(Conexion):
 
     def getById(self, id_evento):
         super().initConn()
+        result = []
         query = f"SELECT * FROM EVENTO_{self.id_oficina} WHERE ID_EVENTO = ?"
         self.cursor.execute(query, (id_evento,))
         row = self.cursor.fetchone()
         super().closeConn()
         if row:
-            return {
+            result.append({
                 'id_evento': row[0],
                 'id_oficina': row[1],
                 'tipo_evento': row[2],
                 'costo_referencial': row[3]
-            }
+            })
+            return result
         return None
 
     def add(self, item):
@@ -545,17 +553,19 @@ class ProveedorDAC(Conexion):
 
     def getById(self, id_proveedor):
         super().initConn()
+        result = []
         query = f"SELECT * FROM PROVEEDOR_{self.id_oficina} WHERE ID_PROVEEDOR = ?"
         self.cursor.execute(query, (id_proveedor))
         row = self.cursor.fetchone()
         super().closeConn()
         if row:
-            return {
+            result.append({
                 'id_proveedor': row[0],
                 'id_oficina': row[1],
                 'nombre_pro': row[2],
                 'especialidad_pro': row[3]
-            }
+            })
+            return result
         return None
 
     def add(self, item):
@@ -631,16 +641,17 @@ class OficinaDAC(Conexion):
 
     def getById(self, id_oficina):
         super().initConn()
+        result = []
         query = f"SELECT * FROM OFICINA WHERE ID_OFICINA = ?"
         self.cursor.execute(query, (id_oficina))
         row = self.cursor.fetchone()
         super().closeConn()
         if row:
-            return {
+            result.append({
                 'id_oficina': row[0],
                 'nombre_of': row[1],
                 'ubicacion': row[2]
-            }
+            })
         return None
 
     def add(self, item):
@@ -701,14 +712,14 @@ class OficinaDAC(Conexion):
 
 
 if __name__ == "__main__":         
-    db = ServicioProveedorDAC()
+    db = ClienteDAC()
     # item = {'id_servicio':'SERV007', 'id_oficina':'{self.id_oficina}', 'id_proveedor':'PROV002' , 'descripcion_ser':'Nuevo Servicio', 'precio_ser':790.5}
     # response = db.delete('SERV0{self.id_oficina}')
-    # print(db.getAl())
+    # print(db.getAll())
     # if response:
     #     print("eliminado")
     # else:
         # print('error')
-    result = db.getById('SERV002')
+    result = db.getById('CLI0006')
     for row in result:
         print(row)
