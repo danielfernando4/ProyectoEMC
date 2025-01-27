@@ -232,11 +232,45 @@ def rutas(app, db):
 
     @app.route("/proveedor-main", methods = ['POST', 'GET'])
     def proveedorMain():
-        return render_template("proveedor_main.html")
+        proveedorDAC = ProveedorDAC()
+        if request.method == 'GET':
+            proveedores = proveedorDAC.getAll()
+            return render_template("proveedor_main.html", proveedores = proveedores)
+        
+        accion = request.form.get('accion')
+        id = request.form.get('id')
+        
+        if accion == "buscar":
+             proveedores = proveedorDAC.getById(id) if id else proveedorDAC.getAll()
+             return render_template("proveedor_main.html", proveedores = proveedores)         
+        
+        if accion == "eliminar":
+            proveedorDAC.delete(id)
+        else:                    
+            proveedor = {
+                'id_proveedor': request.form.get('id_proveedor'),
+                'id_oficina': request.form.get('id_oficina'),
+                'nombre_pro': request.form.get('nombre_pro'),
+                'especialidad_pro': request.form.get('especialidad_pro')
+            }
+
+            if accion == "agregar":
+                proveedorDAC.add(proveedor)
+            elif accion == "actualizar":
+                proveedorDAC.update(proveedor) 
+                
+        proveedores = proveedorDAC.getAll()
+        return render_template("proveedor_main.html", proveedores = proveedores)
 
     @app.route("/proveedor-form", methods = ['POST', 'GET'])
     def proveedorForm():
-        return render_template("proveedor_form.html")
+        proveedorDAC = ProveedorDAC()
+        if request.method == 'POST':
+            print("id   " + request.form.get('id_proveedor'))
+            proveedor = proveedorDAC.getById(request.form.get('id_proveedor'))[0]
+            return render_template("proveedor_form.html", proveedor = proveedor, accion = "actualizar")
+        
+        return render_template("proveedor_form.html", proveedor = None, accion = "agregar")
     
     @app.route("/oficina-main", methods = ['POST', 'GET'])
     def oficinaMain():

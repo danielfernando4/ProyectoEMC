@@ -800,7 +800,7 @@ class OficinaDAC(Conexion):
 
 
 if __name__ == "__main__":         
-    db = OficinaDAC()
+    db = ProveedorDAC()
     # item = {'id_servicio':'SERV007', 'id_oficina':'{self.id_oficina}', 'id_proveedor':'PROV002' , 'descripcion_ser':'Nuevo Servicio', 'precio_ser':790.5}
     # response = db.delete('SERV0{self.id_oficina}')
     # print(db.getAll())
@@ -808,7 +808,7 @@ if __name__ == "__main__":
     #     print("eliminado")
     # else:
         # print('error')
-    result = db.getById('01')
+    result = db.getById('PROV001')
     print(result)
     for row in result:
         print(row)
