@@ -71,11 +71,12 @@ def rutas(app, db):
         
         accion = request.form.get('accion')
         id = request.form.get('id')
-        
+        print(accion)
+        print(id)
         if accion == "buscar":
-             servicios = servicioDAC.getById(id)
-             return render_template("servicio_main.html", servicios = servicios)
-         
+             servicios = servicioDAC.getById(id) if id else servicioDAC.getAll()
+             return render_template("servicio_main.html", servicios = servicios)         
+        
         if accion == "eliminar":
             servicioDAC.delete(id)
         else:                    
