@@ -5,10 +5,10 @@ class Conexion:
         
     def initConn(self):            
         # SERVER LOCAL FKN
-        #user    = "admin"
-        #pswd    = "admin"  
-        #srvr    = "(localdb)\\ServidorDB"
-        #dbase   = "MADRID_EMC"
+        # user    = "admin"
+        # pswd    = "admin"  
+        # srvr    = "(localdb)\\ServidorDB"
+        # dbase   = "MADRID_EMC"
         
         # SERVER MADRID
         user    = "sa"
