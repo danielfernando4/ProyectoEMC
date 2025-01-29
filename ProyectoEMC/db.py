@@ -5,16 +5,16 @@ class Conexion:
         
     def initConn(self):            
         # SERVER LOCAL FKN
-        user    = "admin"
-        pswd    = "admin"  
-        srvr    = "(localdb)\\ServidorDB"
-        dbase   = "MADRID_EMC"
+        #user    = "admin"
+        #pswd    = "admin"  
+        #srvr    = "(localdb)\\ServidorDB"
+        #dbase   = "MADRID_EMC"
         
         # SERVER MADRID
-        # user    = "sa"
-        # pswd    = "P%40ssw0rd"  
-        # srvr    = "26.145.122.242\\MSSQLSERVERENTER"
-        # dbase   = "MADRID_EMC"
+        user    = "sa"
+        pswd    = "P@ssw0rd"  
+        srvr    = "26.145.122.242\\MSSQLSERVERENTER"
+        dbase   = "MADRID_EMC"
 
         # SERVER BARCELONA
         # user    = "sa"
