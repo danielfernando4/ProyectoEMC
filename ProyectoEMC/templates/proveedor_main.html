@@ -39,15 +39,17 @@
                 <td>{{ proveedor.nombre_pro }}</td>
                 <td>{{ proveedor.especialidad_pro }}</td>
                 <td>
-                    <form action="{{ url_for('proveedorForm') }}" method="POST" style="display:inline;">
-                        <input type="hidden" name="id_proveedor" value="{{ proveedor.id_proveedor }}">
-                        <button class="btn-update" type="submit">Actualizar</button>
-                    </form>
-                    <form action="{{ url_for('proveedorMain') }}" method="POST" style="display:inline;">
-                        <input type="hidden" name="id" value="{{ proveedor.id_proveedor }}">
-                        <input type="hidden" name="accion" value="eliminar">
-                        <button class="btn-delete" type="submit">Eliminar</button>
-                    </form>
+                    <div class="acciones">
+                        <form action="{{ url_for('proveedorForm') }}" method="POST" style="display:inline;">
+                            <input type="hidden" name="id_proveedor" value="{{ proveedor.id_proveedor }}">
+                            <button class="btn-update" type="submit">Actualizar</button>
+                        </form>
+                        <form action="{{ url_for('proveedorMain') }}" method="POST" style="display:inline;">
+                            <input type="hidden" name="id" value="{{ proveedor.id_proveedor }}">
+                            <input type="hidden" name="accion" value="eliminar">
+                            <button class="btn-delete" type="submit">Eliminar</button>
+                        </form>
+                    </div>
 
                 </td>
             </tr>
@@ -59,15 +61,17 @@
                 <td>{{ proveedor.nombre_pro }}</td>
                 <td>{{ proveedor.especialidad_pro }}</td>
                 <td>
-                    <form action="{{ url_for('proveedorForm') }}" method="POST" style="display:inline;">
-                        <input type="hidden" name="id_proveedor" value="{{ proveedor.id_proveedor }}">
-                        <button class="btn-update" type="submit">Actualizar</button>
-                    </form>
-                    <form action="{{ url_for('proveedorMain') }}" method="POST" style="display:inline;">
-                        <input type="hidden" name="id" value="{{ proveedor.id_proveedor }}">
-                        <input type="hidden" name="accion" value="eliminar">
-                        <button class="btn-delete" type="submit">Eliminar</button>
-                    </form>
+                    <div class="acciones">
+                        <form action="{{ url_for('proveedorForm') }}" method="POST" style="display:inline;">
+                            <input type="hidden" name="id_proveedor" value="{{ proveedor.id_proveedor }}">
+                            <button class="btn-update" type="submit">Actualizar</button>
+                        </form>
+                        <form action="{{ url_for('proveedorMain') }}" method="POST" style="display:inline;">
+                            <input type="hidden" name="id" value="{{ proveedor.id_proveedor }}">
+                            <input type="hidden" name="accion" value="eliminar">
+                            <button class="btn-delete" type="submit">Eliminar</button>
+                        </form>
+                    </div>
 
                 </td>
             </tr>

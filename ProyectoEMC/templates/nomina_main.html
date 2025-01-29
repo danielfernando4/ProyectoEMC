@@ -37,15 +37,18 @@
                 <td>{{ empleado.salario }}</td>
                 <td>{{ empleado.fecha_contratacion }}</td>
                 <td>
-                    <form action="{{ url_for('nominaForm') }}" method="POST" style="display:inline;">
-                        <input type="hidden" name="id_empleado" value="{{ empleado.id_empleado }}">
-                        <button class="btn-update" type="submit">Actualizar</button>
-                    </form>
-                    <form action="{{ url_for('nominaMain') }}" method="POST" style="display:inline;">
-                        <input type="hidden" name="id" value="{{ empleado.id_empleado }}">
-                        <input type="hidden" name="accion" value="eliminar">
-                        <button class="btn-delete" type="submit">Eliminar</button>
-                    </form>
+                    <div class="acciones">
+                        <div class=""></div>
+                        <form action="{{ url_for('nominaForm') }}" method="POST" style="display:inline;">
+                            <input type="hidden" name="id_empleado" value="{{ empleado.id_empleado }}">
+                            <button class="btn-update" type="submit">Actualizar</button>
+                        </form>
+                        <form action="{{ url_for('nominaMain') }}" method="POST" style="display:inline;">
+                            <input type="hidden" name="id" value="{{ empleado.id_empleado }}">
+                            <input type="hidden" name="accion" value="eliminar">
+                            <button class="btn-delete" type="submit">Eliminar</button>
+                        </form>
+                    </div>
 
                 </td>
             </tr>
@@ -55,16 +58,18 @@
                 <td>{{ empleado.salario }}</td>
                 <td>{{ empleado.fecha_contratacion }}</td>
                 <td>
-                    <form action="{{ url_for('nominaForm') }}" method="POST" style="display:inline;">
-                        <input type="hidden" name="id_empleado" value="{{ empleado.id_empleado }}">
-                        <button class="btn-update" type="submit">Actualizar</button>
-                    </form>
-                    <form action="{{ url_for('nominaMain') }}" method="POST" style="display:inline;">
-                        <input type="hidden" name="id" value="{{ empleado.id_empleado }}">
-                        <input type="hidden" name="accion" value="eliminar">
-                        <button class="btn-delete" type="submit">Eliminar</button>
-                    </form>
-
+                    <div class="acciones">
+                        <div class=""></div>
+                        <form action="{{ url_for('nominaForm') }}" method="POST" style="display:inline;">
+                            <input type="hidden" name="id_empleado" value="{{ empleado.id_empleado }}">
+                            <button class="btn-update" type="submit">Actualizar</button>
+                        </form>
+                        <form action="{{ url_for('nominaMain') }}" method="POST" style="display:inline;">
+                            <input type="hidden" name="id" value="{{ empleado.id_empleado }}">
+                            <input type="hidden" name="accion" value="eliminar">
+                            <button class="btn-delete" type="submit">Eliminar</button>
+                        </form>
+                    </div>
                 </td>
             </tr>
             {% endif %}

@@ -53,15 +53,17 @@
                 <td>{{ contrato.lugar }}</td>
                 <td>{{ contrato.estado_contrato }}</td>
                 <td>
-                    <form action="{{ url_for('contratoForm') }}" method="POST" style="display:inline;">
-                        <input type="hidden" name="id_contrato" value="{{ contrato.id_contrato }}">
-                        <button class="btn-update" type="submit">Actualizar</button>
-                    </form>
-                    <form action="{{ url_for('contratoMain') }}" method="POST" style="display:inline;">
-                        <input type="hidden" name="id" value="{{ contrato.id_contrato }}">
-                        <input type="hidden" name="accion" value="eliminar">
-                        <button class="btn-delete" type="submit">Eliminar</button>
-                    </form>
+                    <div class="acciones">
+                        <form action="{{ url_for('contratoForm') }}" method="POST" style="display:inline;">
+                            <input type="hidden" name="id_contrato" value="{{ contrato.id_contrato }}">
+                            <button class="btn-update" type="submit">Actualizar</button>
+                        </form>
+                        <form action="{{ url_for('contratoMain') }}" method="POST" style="display:inline;">
+                            <input type="hidden" name="id" value="{{ contrato.id_contrato }}">
+                            <input type="hidden" name="accion" value="eliminar">
+                            <button class="btn-delete" type="submit">Eliminar</button>
+                        </form>
+                    </div>
 
                 </td>
             </tr>
@@ -79,15 +81,17 @@
                 <td>{{ contrato.lugar }}</td>
                 <td>{{ contrato.estado_contrato }}</td>
                 <td>
-                    <form action="{{ url_for('contratoForm') }}" method="POST" style="display:inline;">
-                        <input type="hidden" name="id_contrato" value="{{ contrato.id_contrato }}">
-                        <button class="btn-update" type="submit">Actualizar</button>
-                    </form>
-                    <form action="{{ url_for('contratoMain') }}" method="POST" style="display:inline;">
-                        <input type="hidden" name="id" value="{{ contrato.id_contrato }}">
-                        <input type="hidden" name="accion" value="eliminar">
-                        <button class="btn-delete" type="submit">Eliminar</button>
-                    </form>
+                    <div class="acciones">
+                        <form action="{{ url_for('contratoForm') }}" method="POST" style="display:inline;">
+                            <input type="hidden" name="id_contrato" value="{{ contrato.id_contrato }}">
+                            <button class="btn-update" type="submit">Actualizar</button>
+                        </form>
+                        <form action="{{ url_for('contratoMain') }}" method="POST" style="display:inline;">
+                            <input type="hidden" name="id" value="{{ contrato.id_contrato }}">
+                            <input type="hidden" name="accion" value="eliminar">
+                            <button class="btn-delete" type="submit">Eliminar</button>
+                        </form>
+                    </div>
 
                 </td>
             </tr>

@@ -42,16 +42,17 @@
                 <td>{{ servicio.descripcion_ser }}</td>
                 <td>{{ servicio.precio_ser }}</td>
                 <td>
-                    <form action="{{ url_for('servicioForm') }}" method="POST" style="display:inline;">
-                        <input type="hidden" name="id_servicio" value="{{ servicio.id_servicio }}">
-                        <button class="btn-update" type="submit">Actualizar</button>
-                    </form>
-                    <form action="{{ url_for('servicioMain') }}" method="POST" style="display:inline;">
-                        <input type="hidden" name="id" value="{{ servicio.id_servicio }}">
-                        <input type="hidden" name="accion" value="eliminar">
-                        <button class="btn-delete" type="submit">Eliminar</button>
-                    </form>
-
+                    <div class="acciones">
+                        <form action="{{ url_for('servicioForm') }}" method="POST" style="display:inline;">
+                            <input type="hidden" name="id_servicio" value="{{ servicio.id_servicio }}">
+                            <button class="btn-update" type="submit">Actualizar</button>
+                        </form>
+                        <form action="{{ url_for('servicioMain') }}" method="POST" style="display:inline;">
+                            <input type="hidden" name="id" value="{{ servicio.id_servicio }}">
+                            <input type="hidden" name="accion" value="eliminar">
+                            <button class="btn-delete" type="submit">Eliminar</button>
+                        </form>
+                    </div>
                 </td>
             </tr>
             {% else %}
@@ -62,15 +63,17 @@
                 <td>{{ servicio.descripcion_ser }}</td>
                 <td>{{ servicio.precio_ser }}</td>
                 <td>
-                    <form action="{{ url_for('servicioForm') }}" method="POST" style="display:inline;">
-                        <input type="hidden" name="id_servicio" value="{{ servicio.id_servicio }}">
-                        <button class="btn-update" type="submit">Actualizar</button>
-                    </form>
-                    <form action="{{ url_for('servicioMain') }}" method="POST" style="display:inline;">
-                        <input type="hidden" name="id" value="{{ servicio.id_servicio }}">
-                        <input type="hidden" name="accion" value="eliminar">
-                        <button class="btn-delete" type="submit">Eliminar</button>
-                    </form>
+                    <div class="acciones">
+                        <form action="{{ url_for('servicioForm') }}" method="POST" style="display:inline;">
+                            <input type="hidden" name="id_servicio" value="{{ servicio.id_servicio }}">
+                            <button class="btn-update" type="submit">Actualizar</button>
+                        </form>
+                        <form action="{{ url_for('servicioMain') }}" method="POST" style="display:inline;">
+                            <input type="hidden" name="id" value="{{ servicio.id_servicio }}">
+                            <input type="hidden" name="accion" value="eliminar">
+                            <button class="btn-delete" type="submit">Eliminar</button>
+                        </form>
+                    </div>
 
                 </td>
             </tr>
