@@ -9,8 +9,25 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+.table-container-contrato {
+    width: 100%;
+    max-width: 980px;
+    overflow-x: auto;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
 table {
     width: 100%;
+    border-collapse: collapse;
+    margin-top: 25px;
+}
+
+.table-contrato {
+    width: 1900px;
     border-collapse: collapse;
     margin-top: 25px;
 }

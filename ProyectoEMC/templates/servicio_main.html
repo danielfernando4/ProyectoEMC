@@ -1,61 +1,85 @@
 {% extends 'base.html'%}
 
 {% block extra_css %}
+<link rel="stylesheet" href="static/css/tableDesign.css">
 {% endblock %}
 
 {% block title%} Servicios {% endblock %}
 
 
 {% block content%}
-<h1> Servicios </h1>
 
-<form action="{{ url_for('servicioMain') }}" method="POST">
-    <input type="text" name="id" placeholder="Buscar...">
-    <input type="hidden" name="accion" value="buscar">
-    <button type="submit">Buscar por ID</button>
-</form>
-<form action="{{ url_for('servicioForm') }}" method="GET">
-    <button type="submit">Agregar Servicio</button>
-</form>
-<table border="1">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>ID Oficina</th>
-            <th>ID Proveedor</th>
-            <th>Descripción</th>
-            <th>Precio</th>
-            <th>Acciones</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% if servicios: %}
-        {% for servicio in servicios %}
-        <tr>
-            <td>{{ servicio.id_servicio }}</td>
-            <td>{{ servicio.id_oficina }}</td>
-            <td>{{ servicio.id_proveedor }}</td>
-            <td>{{ servicio.descripcion_ser }}</td>
-            <td>{{ servicio.precio_ser }}</td>
-            <td>
-                <form action="{{ url_for('servicioForm') }}" method="POST"
-                    style="display:inline;">
-                    <input type="hidden" name="id_servicio" value="{{ servicio.id_servicio }}">
-                    <button type="submit">Actualizar</button>
-                </form>
-                <form action="{{ url_for('servicioMain') }}" method="POST"
-                    style="display:inline;">
-                    <input type="hidden" name="id" value="{{ servicio.id_servicio }}">
-                    <input type="hidden" name="accion" value = "eliminar">
-                    <button type="submit">Eliminar</button>
-                </form>
 
-            </td>
-        </tr>
-        {% endfor %}
-        {% endif %}
-    </tbody>
-</table>
+<div class="table-container">
+    <h1> Servicios </h1>
+    <form action="{{ url_for('servicioMain') }}" method="POST">
+        <input type="text" name="id" placeholder="Buscar...">
+        <input type="hidden" name="accion" value="buscar">
+        <button type="submit">Buscar por ID</button>
+    </form>
+    <form action="{{ url_for('servicioForm') }}" method="GET">
+        <button type="submit">Agregar Servicio</button>
+    </form>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>ID Oficina</th>
+                <th>ID Proveedor</th>
+                <th>Descripción</th>
+                <th>Precio</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if servicios: %}
+            {% for servicio in servicios %}
+            {% if loop.index % 2 == 0 %}
+            <tr class="even-row">
+                <td>{{ servicio.id_servicio }}</td>
+                <td>{{ servicio.id_oficina }}</td>
+                <td>{{ servicio.id_proveedor }}</td>
+                <td>{{ servicio.descripcion_ser }}</td>
+                <td>{{ servicio.precio_ser }}</td>
+                <td>
+                    <form action="{{ url_for('servicioForm') }}" method="POST" style="display:inline;">
+                        <input type="hidden" name="id_servicio" value="{{ servicio.id_servicio }}">
+                        <button class="btn-update" type="submit">Actualizar</button>
+                    </form>
+                    <form action="{{ url_for('servicioMain') }}" method="POST" style="display:inline;">
+                        <input type="hidden" name="id" value="{{ servicio.id_servicio }}">
+                        <input type="hidden" name="accion" value="eliminar">
+                        <button class="btn-delete" type="submit">Eliminar</button>
+                    </form>
+
+                </td>
+            </tr>
+            {% else %}
+            <tr class="odd-row">
+                <td>{{ servicio.id_servicio }}</td>
+                <td>{{ servicio.id_oficina }}</td>
+                <td>{{ servicio.id_proveedor }}</td>
+                <td>{{ servicio.descripcion_ser }}</td>
+                <td>{{ servicio.precio_ser }}</td>
+                <td>
+                    <form action="{{ url_for('servicioForm') }}" method="POST" style="display:inline;">
+                        <input type="hidden" name="id_servicio" value="{{ servicio.id_servicio }}">
+                        <button class="btn-update" type="submit">Actualizar</button>
+                    </form>
+                    <form action="{{ url_for('servicioMain') }}" method="POST" style="display:inline;">
+                        <input type="hidden" name="id" value="{{ servicio.id_servicio }}">
+                        <input type="hidden" name="accion" value="eliminar">
+                        <button class="btn-delete" type="submit">Eliminar</button>
+                    </form>
+
+                </td>
+            </tr>
+            {% endif%}
+            {% endfor %}
+            {% endif %}
+        </tbody>
+    </table>
+</div>
 {% endblock %}
 
 {% block extra_js %}

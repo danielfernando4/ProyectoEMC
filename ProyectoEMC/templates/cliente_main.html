@@ -1,7 +1,7 @@
 {% extends 'base.html'%}
 
 {% block extra_css %} 
-<link rel="stylesheet" href="static/css/cliente-main.css">
+<link rel="stylesheet" href="static/css/tableDesign.css">
 {% endblock %}
 
 {% block title%} Clientes {% endblock %}
@@ -10,90 +10,86 @@
 {% block content%} 
 
 <div class="table-container">
-<h1>Clientes</h1>
+    <h1>Clientes</h1>
 
-<form action="{{ url_for('clienteMain') }}" method="POST">
-    <input type="text" name="id" placeholder="Buscar...">
-    <input type="hidden" name="accion" value="buscar">
-    <button type="submit">Buscar por ID</button>
-</form>
-<form action="{{ url_for('clienteForm') }}" method="GET">
-    <button type="submit">Agregar Cliente</button>
-</form>
-<table border="1">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Nombre</th>
-            <th>Apellido</th>
-            <th>Correo</th>
-            <th>Teléfono</th>
-            <th>Dirección</th>
-            <th>Acciones</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% if clientes: %}
-        {% for cliente in clientes %}
-
-        {% if loop.index % 2 == 0 %}
-
-        <tr class = "even-row">
-            <td>{{ cliente.id_cliente }}</td>
-            <td>{{ cliente.nombre_cl }}</td>
-            <td>{{ cliente.apellido_cl }}</td>
-            <td>{{ cliente.correo_cl }}</td>
-            <td>{{ cliente.telefono_cl }}</td>
-            <td>{{ cliente.direccion_cl }}</td>
-            <td>
-                <div class="acciones">
-                <form action="{{ url_for('clienteForm') }}" method="POST"
-                    style="display:inline;">
-                    <input type="hidden" name="id_cliente" value="{{ cliente.id_cliente }}">
-                    <button class="btn-update" type="submit">Actualizar</button>
-                </form>
-                <form action="{{ url_for('clienteMain') }}" method="POST"
-                    style="display:inline;">
-                    <input type="hidden" name="id" value="{{ cliente.id_cliente }}">
-                    <input type="hidden" name="accion" value = "eliminar">
-                    <button class="btn-delete" type="submit">Eliminar</button>
-                </form>
-                </div>
-
-            </td>
-        </tr>
-
-        {% else %}
-        <tr class = "odd-row">
-            <td>{{ cliente.id_cliente }}</td>
-            <td>{{ cliente.nombre_cl }}</td>
-            <td>{{ cliente.apellido_cl }}</td>
-            <td>{{ cliente.correo_cl }}</td>
-            <td>{{ cliente.telefono_cl }}</td>
-            <td>{{ cliente.direccion_cl }}</td>
-            <td>
-                <div class="acciones">
-                <form action="{{ url_for('clienteForm') }}" method="POST"
-                    style="display:inline;">
-                    <input type="hidden" name="id_cliente" value="{{ cliente.id_cliente }}">
-                    <button class="btn-update" type="submit">Actualizar</button>
-                </form>
-                <form action="{{ url_for('clienteMain') }}" method="POST"
-                    style="display:inline;">
-                    <input type="hidden" name="id" value="{{ cliente.id_cliente }}">
-                    <input type="hidden" name="accion" value = "eliminar">
-                    <button class="btn-delete" type="submit">Eliminar</button>
-                </form>
-                </div>
-
-            </td>
-        </tr>
-
-        {% endif %}
-        {% endfor %}
-        {% endif %}
-    </tbody>
-</table>
+    <form action="{{ url_for('clienteMain') }}" method="POST">
+        <input type="text" name="id" placeholder="Buscar...">
+        <input type="hidden" name="accion" value="buscar">
+        <button type="submit">Buscar por ID</button>
+    </form>
+    <form action="{{ url_for('clienteForm') }}" method="GET">
+        <button type="submit">Agregar Cliente</button>
+    </form>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Correo</th>
+                <th>Teléfono</th>
+                <th>Dirección</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if clientes: %}
+            {% for cliente in clientes %}
+    
+            {% if loop.index % 2 == 0 %}
+    
+            <tr class="even-row">
+                <td>{{ cliente.id_cliente }}</td>
+                <td>{{ cliente.nombre_cl }}</td>
+                <td>{{ cliente.apellido_cl }}</td>
+                <td>{{ cliente.correo_cl }}</td>
+                <td>{{ cliente.telefono_cl }}</td>
+                <td>{{ cliente.direccion_cl }}</td>
+                <td>
+                    <div class="acciones">
+                        <form action="{{ url_for('clienteForm') }}" method="POST" style="display:inline;">
+                            <input type="hidden" name="id_cliente" value="{{ cliente.id_cliente }}">
+                            <button class="btn-update" type="submit">Actualizar</button>
+                        </form>
+                        <form action="{{ url_for('clienteMain') }}" method="POST" style="display:inline;">
+                            <input type="hidden" name="id" value="{{ cliente.id_cliente }}">
+                            <input type="hidden" name="accion" value="eliminar">
+                            <button class="btn-delete" type="submit">Eliminar</button>
+                        </form>
+                    </div>
+    
+                </td>
+            </tr>
+    
+            {% else %}
+            <tr class="odd-row">
+                <td>{{ cliente.id_cliente }}</td>
+                <td>{{ cliente.nombre_cl }}</td>
+                <td>{{ cliente.apellido_cl }}</td>
+                <td>{{ cliente.correo_cl }}</td>
+                <td>{{ cliente.telefono_cl }}</td>
+                <td>{{ cliente.direccion_cl }}</td>
+                <td>
+                    <div class="acciones">
+                        <form action="{{ url_for('clienteForm') }}" method="POST" style="display:inline;">
+                            <input type="hidden" name="id_cliente" value="{{ cliente.id_cliente }}">
+                            <button class="btn-update" type="submit">Actualizar</button>
+                        </form>
+                        <form action="{{ url_for('clienteMain') }}" method="POST" style="display:inline;">
+                            <input type="hidden" name="id" value="{{ cliente.id_cliente }}">
+                            <input type="hidden" name="accion" value="eliminar">
+                            <button class="btn-delete" type="submit">Eliminar</button>
+                        </form>
+                    </div>
+    
+                </td>
+            </tr>
+    
+            {% endif %}
+            {% endfor %}
+            {% endif %}
+        </tbody>
+    </table>
 
 </div>
 {% endblock %}

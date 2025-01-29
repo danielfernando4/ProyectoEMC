@@ -1,58 +1,78 @@
 {% extends 'base.html'%}
 
 {% block extra_css %} 
+<link rel="stylesheet" href="static/css/tableDesign.css">
 {% endblock %}
 
 {% block title%} Nómina de Empleados {% endblock %}
 
 
 {% block content%} 
-<h1>Nómina de Empleados</h1>
+<div class="table-container">
+    <h1>Nómina de Empleados</h1>
 
-<form action="{{ url_for('nominaMain') }}" method="POST">
-    <input type="text" name="id" placeholder="Buscar...">
-    <input type="hidden" name="accion" value="buscar">
-    <button type="submit">Buscar por ID</button>
-</form>
-<form action="{{ url_for('nominaForm') }}" method="GET">
-    <button type="submit">Agregar Empleado</button>
-</form>
-<table border="1">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Salario</th>
-            <th>Fecha de Contratación</th>
-            <th>Acciones</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% if empleados: %}
-        {% for empleado in empleados %}
-        <tr>
-            <td>{{ empleado.id_empleado }}</td>
-            <td>{{ empleado.salario }}</td>
-            <td>{{ empleado.fecha_contratacion }}</td>
-            <td>
-                <form action="{{ url_for('nominaForm') }}" method="POST"
-                    style="display:inline;">
-                    <input type="hidden" name="id_empleado" value="{{ empleado.id_empleado }}">
-                    <button type="submit">Actualizar</button>
-                </form>
-                <form action="{{ url_for('nominaMain') }}" method="POST"
-                    style="display:inline;">
-                    <input type="hidden" name="id" value="{{ empleado.id_empleado }}">
-                    <input type="hidden" name="accion" value = "eliminar">
-                    <button type="submit">Eliminar</button>
-                </form>
+    <form action="{{ url_for('nominaMain') }}" method="POST">
+        <input type="text" name="id" placeholder="Buscar...">
+        <input type="hidden" name="accion" value="buscar">
+        <button type="submit">Buscar por ID</button>
+    </form>
+    <form action="{{ url_for('nominaForm') }}" method="GET">
+        <button type="submit">Agregar Empleado</button>
+    </form>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Salario</th>
+                <th>Fecha de Contratación</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if empleados: %}
+            {% for empleado in empleados %}
+            {% if loop.index % 2 == 0 %}
+            <tr class="even-row">
+                <td>{{ empleado.id_empleado }}</td>
+                <td>{{ empleado.salario }}</td>
+                <td>{{ empleado.fecha_contratacion }}</td>
+                <td>
+                    <form action="{{ url_for('nominaForm') }}" method="POST" style="display:inline;">
+                        <input type="hidden" name="id_empleado" value="{{ empleado.id_empleado }}">
+                        <button class="btn-update" type="submit">Actualizar</button>
+                    </form>
+                    <form action="{{ url_for('nominaMain') }}" method="POST" style="display:inline;">
+                        <input type="hidden" name="id" value="{{ empleado.id_empleado }}">
+                        <input type="hidden" name="accion" value="eliminar">
+                        <button class="btn-delete" type="submit">Eliminar</button>
+                    </form>
 
-            </td>
-        </tr>
-        {% endfor %}
-        {% endif %}
-    </tbody>
-</table>
+                </td>
+            </tr>
+            {% else %}
+            <tr class="odd-row">
+                <td>{{ empleado.id_empleado }}</td>
+                <td>{{ empleado.salario }}</td>
+                <td>{{ empleado.fecha_contratacion }}</td>
+                <td>
+                    <form action="{{ url_for('nominaForm') }}" method="POST" style="display:inline;">
+                        <input type="hidden" name="id_empleado" value="{{ empleado.id_empleado }}">
+                        <button class="btn-update" type="submit">Actualizar</button>
+                    </form>
+                    <form action="{{ url_for('nominaMain') }}" method="POST" style="display:inline;">
+                        <input type="hidden" name="id" value="{{ empleado.id_empleado }}">
+                        <input type="hidden" name="accion" value="eliminar">
+                        <button class="btn-delete" type="submit">Eliminar</button>
+                    </form>
 
+                </td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+            {% endif %}
+        </tbody>
+    </table>
+</div>
 {% endblock %}
 
 {% block extra_js %}
