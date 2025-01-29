@@ -11,7 +11,7 @@ html, body {
 }
 
 .encabezado {
-    flex: 0 1 13%;
+    flex: 0 1 15%;
     flex-shrink: 1;
     background-color: #1FC794;
     display: flex; /* Activar el modelo Flexbox */
@@ -21,7 +21,7 @@ html, body {
 }
 
 .side-main {
-    flex: 0 1 87%;
+    flex: 0 1 85%;
     display: flex;
     width: 100%;
 }
@@ -41,19 +41,32 @@ html, body {
     display: flex;
     flex-wrap: wrap; 
     align-items: center;
+    margin-left: 25px;
 }
 
+.logo-nombreEMC p {
+    margin-left: 10px;
+}
+
+.logo {
+    margin: 5px, 5px, 5px, 5px;
+}
 
 .encabezado .logo img {
-    width: 120px;
+    width: 100px;
     height: auto;
 }
 
 .encabezado p {
     font-size: 25px; /* Tamaño de la fuente */
     color: #FFFFFF; /* Color del texto */
-    margin: 5px 0; /* Margen superior e inferior */
+    margin-top: 2px; /* Margen superior e inferior */
+    margin-bottom: 2px;
     font-family: 'Arial', sans-serif; /* Tipo de letra */
+}
+
+.oficina {
+    margin-right: 20px;
 }
 
 /*Para configurar el diseño del menu de la barra lateral y los íconos del sidebar*/
@@ -85,6 +98,10 @@ html, body {
 }
 
 
+.menu ul li {
+    /*border-bottom: 2px solid black;*/
+    margin-bottom: 12px;
+}
 
 .menu ul li:hover {
     background-color: #6ada4b;
