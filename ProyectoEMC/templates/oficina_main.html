@@ -16,7 +16,7 @@
 
     <!-- Busqueda --> 
     <div class="search__container">
-        <input id="searchInput" class="search__input" type="text" placeholder="Buscar por ID...">
+        <input id="searchInputOficinas" class="search__input" type="text" placeholder="Buscar por ID...">
     </div>
    
     <!-- Agregar Cliente (Button)--> 
@@ -105,7 +105,7 @@
     </button>
     </form>
 
-    <table border="1">
+    <table border="1" id="oficinaTable">
         <thead>
             <tr>
                 <th>ID</th>
@@ -165,5 +165,5 @@
 {% endblock %}
 
 {% block extra_js %}
-<script src="static/js/searchTable.js"></script>
+<script src="static/js/busqueda.js"></script>
 {% endblock %}

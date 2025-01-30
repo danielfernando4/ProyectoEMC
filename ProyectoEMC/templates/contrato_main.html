@@ -15,7 +15,7 @@
 
     <!-- Busqueda --> 
     <div class="search__container">
-        <input id="searchInput" class="search__input" type="text" placeholder="Buscar por ID...">
+        <input id="searchInputContratos" class="search__input" type="text" placeholder="Buscar por ID...">
     </div>
    
     <!-- Agregar Cliente (Button)--> 
@@ -105,7 +105,7 @@
     </form>
 
     <!-- Tabla de Contratos -->
-    <table class="table-contrato" border="1">
+    <table border="1" id="contratosTable">
         <thead>
             <tr>
                 <th>ID</th>
@@ -125,7 +125,7 @@
         <tbody>
             {% if contratos: %}
             {% for contrato in contratos %}
-            {% if loop.index % 2 == 0%}
+            {% if loop.index % 2 == 0 %}
             <tr class="odd-row">
                 <td>{{ contrato.id_contrato }}</td>
                 <td>{{ contrato.id_oficina }}</td>
