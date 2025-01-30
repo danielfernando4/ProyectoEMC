@@ -1,7 +1,7 @@
 import pyodbc
 class Conexion:
     def __init__(self):
-        self.id_oficina = '01'
+        self.id_oficina = '02'
         
     def initConn(self):            
         # SERVER LOCAL FKN
@@ -11,16 +11,16 @@ class Conexion:
         #dbase   = "MADRID_EMC"
         
         # SERVER MADRID
-        user    = "sa"
-        pswd    = "P@ssw0rd"  
-        srvr    = "26.145.122.242\\MSSQLSERVERENTER"
-        dbase   = "MADRID_EMC"
+        # user    = "sa"
+        # pswd    = "P@ssw0rd"  
+        # srvr    = "26.145.122.242\\MSSQLSERVERENTER"
+        # dbase   = "MADRID_EMC"
 
         # SERVER BARCELONA
-        # user    = "sa"
-        # pswd    = "P%40ssw0rd"  
-        # srvr    = "26.225.244.188\\MSSQLSERVERENTER"
-        # dbase   = "BARCELONA_EMC"
+        user    = "sa"
+        pswd    = "P@ssw0rd"  
+        srvr    = "26.225.244.188\\MSSQLSERVERENTER"
+        dbase   = "BARCELONA_EMC"
         
         self.conn = pyodbc.connect(
             f'DRIVER={{ODBC Driver 17 for SQL Server}};SERVER={srvr};DATABASE={dbase};UID={user};PWD={pswd}'           
