@@ -1,36 +1,81 @@
 {% extends 'base.html'%}
 
 {% block extra_css %}
+<link rel="stylesheet" href="static/css/formulario.css">
 {% endblock %}
 
 {% block title%} Servicios Formulario {% endblock %}
 
 
 {% block content%}
-<form action="{{ url_for('servicioMain') }}" method="POST">
-    <label for="id_servicio">ID:</label>
-    <input type="text" id="id_servicio" name="id_servicio" value="{{ servicio['id_servicio'] }}" required>
-    <br>
-    <label for="id_oficina">ID Oficina:</label>
-    <input type="text" id="id_oficina" name="id_oficina" value="{{ servicio.id_oficina }}" required>
-    <br>
-    <label for="id_proveedor">ID Proveedor:</label>
-    <input type="text" id="id_proveedor" name="id_proveedor" value="{{ servicio.id_proveedor }}" required>
-    <br>
-    <label for="descripcion_ser">Descripción:</label>
-    <input type="text" id="descripcion_ser" name="descripcion_ser" value="{{ servicio.descripcion_ser }}" required>
-    <br>
-    <label for="precio_ser">Precio:</label>
-    <input type="text" id="precio_ser" name="precio_ser" value="{{ servicio.precio_ser }}" required>
-    <br>
-    <input type="hidden" name="accion" value="{{accion}}">
-    {% if accion == 'agregar' %}
-        <button type="submit">Registrar Datos</button>
-    {% elif accion == 'actualizar' %}
-        <button type="submit">Actualizar Datos</button>
-    {% endif %}
-    <button onclick="history.back()">Cancelar</button>
-</form>
+
+
+<div class="form-container">
+    <h2>Registrar nuevo servicio</h2>
+    <form action="{{ url_for('servicioMain') }}" method="POST">
+
+
+
+        <div class="form-group">
+            <label for="id_servicio">ID:</label>
+            <input type="text" id="id_servicio" name="id_servicio" value="{{ servicio['id_servicio'] }}" required>
+        </div>
+
+
+
+        <div class="form-group">
+            <label for="id_oficina">ID Oficina:</label>
+            <input type="text" id="id_oficina" name="id_oficina" value="{{ servicio.id_oficina }}" required>
+        </div>
+
+
+
+        <div class="form-group">
+            <label for="id_proveedor">ID Proveedor:</label>
+            <input type="text" id="id_proveedor" name="id_proveedor" value="{{ servicio.id_proveedor }}" required>
+        </div>
+
+
+
+        <div class="form-group">
+            <label for="descripcion_ser">Descripción:</label>
+            <input type="text" id="descripcion_ser" name="descripcion_ser" value="{{ servicio.descripcion_ser }}"
+                required>
+        </div>
+
+
+
+
+        <div class="form-group">
+            <label for="precio_ser">Precio:</label>
+            <input type="text" id="precio_ser" name="precio_ser" value="{{ servicio.precio_ser }}" required>
+        </div>
+
+
+
+
+
+        <div class="btn-container">
+
+            <input type="hidden" name="accion" value="{{accion}}">
+
+
+            {% if accion == 'agregar' %}
+            <div>
+                <button type="submit">Registrar Datos</button>
+            </div>
+            {% elif accion == 'actualizar' %}
+
+
+            <button type="submit">Actualizar Datos</button>
+
+            {% endif %}
+            <div>
+                <button class="btn-cancelar" onclick="history.back()">Cancelar</button>
+            </div>
+        </div>
+    </form>
+</div>
 {% endblock %}
 
 {% block extra_js %}

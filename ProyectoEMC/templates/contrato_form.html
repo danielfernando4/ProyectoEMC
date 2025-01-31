@@ -1,54 +1,110 @@
 {% extends 'base.html'%}
 
 {% block extra_css %}
+<link rel="stylesheet" href="static/css/formulario.css">
 {% endblock %}
 
 {% block title%} Contrato Formulario {% endblock %}
 
 
 {% block content%}
-<form action="{{ url_for('contratoMain') }}" method="POST">
-    <label for="id_contrato">ID:</label>
-    <input type="text" id="id_contrato" name="id_contrato" value="{{ contrato['id_contrato'] }}" required>
-    <br>
-    <label for="id_oficina">ID Oficina:</label>
-    <input type="text" id="id_oficina" name="id_oficina" value="{{ contrato.id_oficina }}" required>
-    <br>
-    <label for="id_evento">ID Evento:</label>
-    <input type="text" id="id_evento" name="id_evento" value="{{ contrato.id_evento }}" required>
-    <br>
-    <label for="id_empleado">ID Empleado:</label>
-    <input type="text" id="id_empleado" name="id_empleado" value="{{ contrato.id_empleado }}" required>
-    <br>
-    <label for="id_cliente">ID Cliente:</label>
-    <input type="text" id="id_cliente" name="id_cliente" value="{{ contrato.id_cliente }}" required>
-    <br>
-    <label for="id_servicio">ID Servicio:</label>
-    <input type="text" id="id_servicio" name="id_servicio" value="{{ contrato.id_servicio }}" required>
-    <br>
-    <label for="fecha_inicio">Fecha de Inicio:</label>
-    <input type="text" id="fecha_inicio" name="fecha_inicio" value="{{ contrato.fecha_inicio }}" required>
-    <br>
-    <label for="fecha_fin">Fecha de Fin:</label>
-    <input type="text" id="fecha_fin" name="fecha_fin" value="{{ contrato.fecha_fin }}" required>
-    <br>
-    <label for="presupuesto">Presupuesto:</label>
-    <input type="text" id="presupuesto" name="presupuesto" value="{{ contrato.presupuesto }}" required>
-    <br>
-    <label for="lugar">Lugar:</label>
-    <input type="text" id="lugar" name="lugar" value="{{ contrato.lugar }}" required>
-    <br>
-    <label for="estado_contrato">Estado del Contrato:</label>
-    <input type="text" id="estado_contrato" name="estado_contrato" value="{{ contrato.estado_contrato }}" required>
-    <br>
-    <input type="hidden" name="accion" value="{{accion}}">
-    {% if accion == 'agregar' %}
-        <button type="submit">Registrar Datos</button>
-    {% elif accion == 'actualizar' %}
-        <button type="submit">Actualizar Datos</button>
-    {% endif %}
-    <button onclick="history.back()">Cancelar</button>
-</form>
+
+<div class="form-container">
+    <h2>Agregar un nuevo contrato de evento</h2>
+    <form action="{{ url_for('contratoMain') }}" method="POST">
+
+
+        <div class="form-group">
+            <label for="id_contrato">ID:</label>
+            <input type="text" id="id_contrato" name="id_contrato" value="{{ contrato['id_contrato'] }}" required>
+        </div>
+        
+        
+        <div class="form-group">
+            <label for="id_oficina">ID Oficina:</label>
+            <input type="text" id="id_oficina" name="id_oficina" value="{{ contrato.id_oficina }}" required>
+        </div>
+        
+        
+        
+        <div class="form-group">
+            <label for="id_evento">ID Evento:</label>
+            <input type="text" id="id_evento" name="id_evento" value="{{ contrato.id_evento }}" required>
+        </div>
+        
+        
+        <div class="form-group">
+            <label for="id_empleado">ID Empleado:</label>
+            <input type="text" id="id_empleado" name="id_empleado" value="{{ contrato.id_empleado }}" required>
+        </div>
+        
+        
+        
+        <div class="form-group">
+            <label for="id_cliente">ID Cliente:</label>
+            <input type="text" id="id_cliente" name="id_cliente" value="{{ contrato.id_cliente }}" required>
+        </div>
+        
+        
+        <div class="form-group">
+            <label for="id_servicio">ID Servicio:</label>
+            <input type="text" id="id_servicio" name="id_servicio" value="{{ contrato.id_servicio }}" required>
+        </div>
+        
+        <div class="container-fecha">
+            <div class="form-group">
+                <label for="fecha_inicio">Fecha de Inicio:</label>
+                <input class="form-group-fecha" type="date" id="fecha_inicio" name="fecha_inicio"
+                    value="{{ contrato.fecha_inicio }}" required>
+            </div>
+            <div class="form-group">
+                <label for="fecha_fin">Fecha de Fin:</label>
+                <input class="form-group-fecha" type="date" id="fecha_fin" name="fecha_fin" value="{{ contrato.fecha_fin }}"
+                    required>
+            </div>
+        </div>
+        
+        
+        <div class="form-group">
+            <label for="presupuesto">Presupuesto:</label>
+            <input type="text" id="presupuesto" name="presupuesto" value="{{ contrato.presupuesto }}" required>
+        </div>
+        
+        
+        <div class="form-group">
+            <label for="lugar">Lugar:</label>
+            <input type="text" id="lugar" name="lugar" value="{{ contrato.lugar }}" required>
+        </div>
+        
+        
+        <div class="form-group">
+            <label for="estado_contrato">Estado del Contrato:</label>
+            <input type="text" id="estado_contrato" name="estado_contrato" value="{{ contrato.estado_contrato }}" required>
+        </div>
+        
+        
+        
+        <div class="btn-container">
+        
+            <input type="hidden" name="accion" value="{{accion}}">
+        
+        
+            {% if accion == 'agregar' %}
+            <div>
+                <button type="submit">Registrar Datos</button>
+            </div>
+            {% elif accion == 'actualizar' %}
+        
+        
+            <button type="submit">Actualizar Datos</button>
+        
+            {% endif %}
+            <div>
+                <button class="btn-cancelar" onclick="history.back()">Cancelar</button>
+            </div>
+        </div>
+    </form>
+</div>
 {% endblock %}
 
 {% block extra_js %}

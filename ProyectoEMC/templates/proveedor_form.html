@@ -1,33 +1,71 @@
 {% extends 'base.html'%}
 
 {% block extra_css %}
+<link rel="stylesheet" href="static/css/formulario.css">
 {% endblock %}
 
 {% block title%} Proveedor Formulario {% endblock %}
 
 
 {% block content%}
-<form action="{{ url_for('proveedorMain') }}" method="POST">
-    <label for="id_proveedor">ID:</label>
-    <input type="text" id="id_proveedor" name="id_proveedor" value="{{ proveedor.id_proveedor }}" required>
-    <br>
-    <label for="id_oficina">ID Oficina  :</label>
-    <input type="text" id="id_oficina" name="id_oficina" value="{{ proveedor.id_oficina }}" required>
-    <br>
-    <label for="nombre_pro">Nombre:</label>
-    <input type="text" id="nombre_pro" name="nombre_pro" value="{{ proveedor.nombre_pro }}" required>
-    <br>
-    <label for="especialidad_pro">Especialidad:</label>
-    <input type="text" id="especialidad_pro" name="especialidad_pro" value="{{ proveedor.especialidad_pro }}" required>
-    <br>
-    <input type="hidden" name="accion" value="{{accion}}">
-    {% if accion == 'agregar' %}
-        <button type="submit">Registrar Datos</button>
-    {% elif accion == 'actualizar' %}
-        <button type="submit">Actualizar Datos</button>
-    {% endif %}
-    <button onclick="history.back()">Cancelar</button>
-</form>
+
+
+<div class="form-container">
+    <h2>Registrar nuevo proovedor</h2>
+    
+    <form action="{{ url_for('proveedorMain') }}" method="POST">
+
+
+        <div class="form-group">
+            <label for="id_proveedor">ID:</label>
+            <input type="text" id="id_proveedor" name="id_proveedor" value="{{ proveedor.id_proveedor }}" required>
+        </div>
+
+
+        <div class="form-group">
+            <label for="id_oficina">ID Oficina :</label>
+            <input type="text" id="id_oficina" name="id_oficina" value="{{ proveedor.id_oficina }}" required>
+        </div>
+
+
+
+        <div class="form-group">
+            <label for="nombre_pro">Nombre:</label>
+            <input type="text" id="nombre_pro" name="nombre_pro" value="{{ proveedor.nombre_pro }}" required>
+        </div>
+
+
+
+        <div class="form-group">
+            <label for="especialidad_pro">Especialidad:</label>
+            <input type="text" id="especialidad_pro" name="especialidad_pro" value="{{ proveedor.especialidad_pro }}"
+                required>
+        </div>
+
+
+
+
+        <div class="btn-container">
+
+            <input type="hidden" name="accion" value="{{accion}}">
+
+
+            {% if accion == 'agregar' %}
+            <div>
+                <button type="submit">Registrar Datos</button>
+            </div>
+            {% elif accion == 'actualizar' %}
+
+
+            <button type="submit">Actualizar Datos</button>
+
+            {% endif %}
+            <div>
+                <button class="btn-cancelar" onclick="history.back()">Cancelar</button>
+            </div>
+        </div>
+    </form>
+</div>
 {% endblock %}
 
 {% block extra_js %}
