@@ -16,12 +16,21 @@
 
     <!-- Busqueda --> 
     <div class="search__container">
-        <input id="searchInputCatalogo" class="search__input" type="text" placeholder="Buscar por ID...">
+        <input id="searchInputCatalogo" class="search__input" type="text" placeholder="Buscar...">
     </div>
    
-    <!-- Agregar Cliente (Button)--> 
-      
+    <!-- Agregar botones de consulta -->
+    <form action="{{ url_for('catalogoMain') }}" method="POST">
+        <input type="hidden" name="accion" value="consultar_oficinas">
+        <button type="submit">Consultar en todas las oficinas</button>  
+
+    </form>
+    <form action="{{ url_for('catalogoMain') }}" method="GET">
+        <button type="submit">Consultar localmente</button>  
+
+    </form>
     <form action="{{ url_for('catalogoForm') }}" method="GET">
+    <!-- Agregar Cliente (Button)--> 
     <button class="Documents-btn">
         <span class="folderContainer">
         <svg

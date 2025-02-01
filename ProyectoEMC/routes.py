@@ -1,12 +1,10 @@
 from flask import render_template, request, redirect, url_for
-from modelsFKN import Cliente, ContratoEvento, Empleado, Evento, Oficina, Proveedor, ServicioProveedor
 from db import *
 
-def rutas(app, db):
+def rutas(app):
     @app.route("/")
     def main():
-        return f"Error al agregar: dato", 500
-
+        return redirect(url_for("catalogoMain"))
 
     @app.route("/base")
     def base():
@@ -24,9 +22,9 @@ def rutas(app, db):
         accion = request.form.get('accion')
         id = request.form.get('id')
         
-        if accion == "buscar":
-             eventos = eventoDAC.getById(id) if id else eventoDAC.getAll()
-             return render_template("catalogo_main.html", eventos = eventos)         
+        if accion == "consultar_oficinas":
+            eventos = eventoDAC.getAllOffices()
+            return render_template("catalogo_main.html", eventos = eventos)           
         
         if accion == "eliminar":
             eventoDAC.delete(id)
@@ -266,7 +264,6 @@ def rutas(app, db):
     def proveedorForm():
         proveedorDAC = ProveedorDAC()
         if request.method == 'POST':
-            print("id   " + request.form.get('id_proveedor'))
             proveedor = proveedorDAC.getById(request.form.get('id_proveedor'))[0]
             return render_template("proveedor_form.html", proveedor = proveedor, accion = "actualizar")
         
