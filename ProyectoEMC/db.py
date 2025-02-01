@@ -6,16 +6,16 @@ class Conexion:
         
     def initConn(self):            
         # SERVER LOCAL FKN
-        # user    = "admin"
-        # pswd    = "admin"  
-        # srvr    = "(localdb)\\ServidorDB"
-        # dbase   = "MADRID_EMC"
+        user    = "admin"
+        pswd    = "admin"  
+        srvr    = "(localdb)\\ServidorDB"
+        dbase   = "MADRID_EMC"
         
         #SERVER MADRID
-        user    = "sa"
-        pswd    = "P@ssw0rd"  
-        srvr    = "26.145.122.242\\MSSQLSERVERENTER"
-        dbase   = "MADRID_EMC"
+        # user    = "sa"
+        # pswd    = "P@ssw0rd"  
+        # srvr    = "26.145.122.242\\MSSQLSERVERENTER"
+        # dbase   = "MADRID_EMC"
 
         # SERVER BARCELONA
         """
@@ -56,15 +56,12 @@ class ServicioProveedorDAC(Conexion):
         super().closeConn()
         return result
             
-            
-    def getById(self, id):
+    def getAllOffices(self, id): 
         super().initConn()
         result = []
-        query = f"SELECT * FROM SERVICIO_PROVEEDOR_{self.id_oficina} WHERE ID_SERVICIO = ?"
-        print(query)
+        query = f"SELECT * FROM VW_SERVICIO_PROVEEDOR"
         self.cursor.execute(query, id)
         for row in self.cursor.fetchall(): 
-            super().closeConn()           
             result.append({
                 'id_servicio': row[0],
                 'id_oficina': row[1],
@@ -72,13 +69,28 @@ class ServicioProveedorDAC(Conexion):
                 'descripcion_ser': row[3],
                 'precio_ser': row[4]
             })
-            return result 
         super().closeConn()
-        return None
+        return result
+            
+    def getById(self, id):
+        super().initConn()
+        result = []
+        query = f"SELECT * FROM SERVICIO_PROVEEDOR_{self.id_oficina} WHERE ID_SERVICIO = ?"
+        self.cursor.execute(query, id)
+        if row:  
+            result.append({
+                'id_servicio': row[0],
+                'id_oficina': row[1],
+                'id_proveedor': row[2],
+                'descripcion_ser': row[3],
+                'precio_ser': row[4]
+            })
+        super().closeConn()
+        return result
 
     def add(self, item):
         super().initConn()
-        query = f"""INSERT INTO SERVICIO_PROVEEDOR_{self.id_oficina} 
+        query = f"""INSERT INTO VW_SERVICIO_PROVEEDOR 
                    (ID_SERVICIO, ID_OFICINA, ID_PROVEEDOR, DESCRIPCION_SER, PRECIO_SER) 
                    VALUES (?, ?, ?, ?, ?)"""
         try:
@@ -253,6 +265,29 @@ class ContratoEventoDAC(Conexion):
             result.append(item)
         super().closeConn()
         return result
+    
+    def getAllOffices(self):
+        super().initConn()
+        result = []
+        query = f"SELECT * FROM VW_CONTRATO_EVENTO"
+        self.cursor.execute(query)
+        for row in self.cursor.fetchall():
+            item = {
+                'id_contrato': row[0],
+                'id_oficina': row[1],
+                'id_evento': row[2],
+                'id_empleado': row[3],
+                'id_cliente': row[4],
+                'id_servicio': row[5],
+                'fecha_inicio': row[6],
+                'fecha_fin': row[7],
+                'presupuesto': row[8],
+                'lugar': row[9],
+                'estado_contrato': row[10]
+            }
+            result.append(item)
+        super().closeConn()
+        return result
 
     def getById(self, id_contrato):
         super().initConn()
@@ -275,12 +310,11 @@ class ContratoEventoDAC(Conexion):
                 'lugar': row[9],
                 'estado_contrato': row[10]
             })
-            return result
-        return None
+        return result
 
     def add(self, item):
         super().initConn()
-        query = f"""INSERT INTO CONTRATO_EVENTO_{self.id_oficina} 
+        query = f"""INSERT INTO VW_CONTRATO_EVENTO
                    (ID_CONTRATO, ID_OFICINA, ID_EVENTO, ID_EMPLEADO, ID_CLIENTE, ID_SERVICIO, 
                     FECHA_INICIO, FECHA_FIN, PRESUPUESTO, LUGAR, ESTADO_CONTRATO) 
                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"""
@@ -368,6 +402,25 @@ class EmpleadoDAC(Conexion):
             result.append(item)
         super().closeConn()
         return result
+    
+    def getAllOffices(self):
+        super().initConn()
+        result = []
+        query = f"SELECT * FROM VW_EMPLEADO"
+        self.cursor.execute(query)
+        for row in self.cursor.fetchall():
+            item = {
+                'id_empleado': row[0],
+                'id_oficina': row[1],
+                'nombre_emp': row[2],
+                'apellido_emp': row[3],
+                'cargo_emp': row[4],
+                'telefono_emp': row[5],
+                'correo_emp': row[6]
+            }
+            result.append(item)
+        super().closeConn()
+        return result
 
     def getById(self, id_empleado):
         super().initConn()
@@ -386,8 +439,7 @@ class EmpleadoDAC(Conexion):
                 'telefono_emp': row[5],
                 'correo_emp': row[6]
             })
-            return result
-        return None
+        return result
 
     def add(self, item):
         super().initConn()
@@ -552,6 +604,22 @@ class EventoDAC(Conexion):
             result.append(item)
         super().closeConn()
         return result
+    
+    def getAllOffices(self):
+        super().initConn()
+        result = []
+        query = f"SELECT * FROM VW_EVENTO"
+        self.cursor.execute(query)
+        for row in self.cursor.fetchall():
+            item = {
+                'id_evento': row[0],
+                'id_oficina': row[1],
+                'tipo_evento': row[2],
+                'costo_referencial': row[3]
+            }
+            result.append(item)
+        super().closeConn()
+        return result
 
     def getById(self, id_evento):
         super().initConn()
@@ -567,8 +635,7 @@ class EventoDAC(Conexion):
                 'tipo_evento': row[2],
                 'costo_referencial': row[3]
             })
-            return result
-        return None
+        return result
 
     def add(self, item):
         super().initConn()
@@ -641,6 +708,22 @@ class ProveedorDAC(Conexion):
             result.append(item)
         super().closeConn()
         return result
+    
+    def getAllOffices(self):
+        super().initConn()
+        result = []
+        query = f"SELECT * FROM VW_PROVEEDOR"
+        self.cursor.execute(query)
+        for row in self.cursor.fetchall():
+            item = {
+                'id_proveedor': row[0],
+                'id_oficina': row[1],
+                'nombre_pro': row[2],
+                'especialidad_pro': row[3]
+            }
+            result.append(item)
+        super().closeConn()
+        return result
 
     def getById(self, id_proveedor):
         super().initConn()
@@ -656,8 +739,7 @@ class ProveedorDAC(Conexion):
                 'nombre_pro': row[2],
                 'especialidad_pro': row[3]
             })
-            return result
-        return None
+        return result
 
     def add(self, item):
         super().initConn()
@@ -743,8 +825,7 @@ class OficinaDAC(Conexion):
                 'nombre_of': row[1],
                 'ubicacion': row[2]
             })
-            return result
-        return None
+        return result
 
     def add(self, item):
         super().initConn()
