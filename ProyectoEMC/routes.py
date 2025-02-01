@@ -1,8 +1,7 @@
 from flask import render_template, request, redirect, url_for
-from modelsFKN import Cliente, ContratoEvento, Empleado, Evento, Oficina, Proveedor, ServicioProveedor
 from db import *
 
-def rutas(app, db):
+def rutas(app):
     @app.route("/")
     def main():
         return f"Error al agregar: dato", 500
