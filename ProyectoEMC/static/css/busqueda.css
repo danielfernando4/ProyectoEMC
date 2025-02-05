@@ -1,9 +1,12 @@
 .search__container {
+    display: flex;
+    flex-direction: column;
     padding: 20px 0; /* Ajuste del padding para la alineación */
     margin-top: -20px;
 }
 
 .search__input {
+    display: flex;
     width: calc(50% - 40px); /* Ajuste para tener en cuenta el padding */
     padding: 12px 24px;
     background-color: transparent;
@@ -17,7 +20,7 @@
     background-position: 95% center;
     border-radius: 50px;
     border: 1px solid  #001E41;
-    transition: all 250ms ease-in-out;
+    transition: all 400ms ease-in-out;
     backface-visibility: hidden;
     transform-style: preserve-3d;
 }

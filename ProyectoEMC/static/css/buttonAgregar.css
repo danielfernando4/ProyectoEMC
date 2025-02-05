@@ -16,6 +16,8 @@
   top: -70px;
 }
 .folderContainer {
+  display: flex;
+  flex-direction: column;
   width: 40px;
   height: fit-content;
   display: flex;
