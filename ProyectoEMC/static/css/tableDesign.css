@@ -102,3 +102,13 @@ tbody td {
 .btn-update:hover {
     background-color: #48b633;
 }
+
+
+.acciones img {
+    width: 25px;
+    height: 20px;
+    margin-right: 5px;
+    vertical-align: middle;
+    filter: invert(1);
+}
+

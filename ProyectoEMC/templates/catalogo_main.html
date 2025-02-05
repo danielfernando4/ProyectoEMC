@@ -138,12 +138,12 @@
                     <div class="acciones">
                         <form action="{{ url_for('catalogoForm') }}" method="POST" style="display:inline;">
                             <input type="hidden" name="id_evento" value="{{ evento.id_evento }}">
-                            <button class="btn-update" type="submit">Actualizar</button>
+                            <button class="btn-update" type="submit"> <img src="static/icons/edit.png" alt="Editar" class="icon"> Actualizar</button>
                         </form>
                         <form action="{{ url_for('catalogoMain') }}" method="POST" style="display:inline;">
                             <input type="hidden" name="id" value="{{ evento.id_evento }}">
                             <input type="hidden" name="accion" value="eliminar">
-                            <button class="btn-delete" type="submit">Eliminar</button>
+                            <button class="btn-delete" type="submit">  <img src="static/icons/delete1.png" alt="Eliminar" class="icon"> Eliminar</button>
                         </form>
                     </div>
 
@@ -159,12 +159,12 @@
                     <div class="acciones">
                         <form action="{{ url_for('catalogoForm') }}" method="POST" style="display:inline;">
                             <input type="hidden" name="id_evento" value="{{ evento.id_evento }}">
-                            <button class="btn-update" type="submit">Actualizar</button>
+                            <button class="btn-update" type="submit">  <img src="static/icons/edit.png" alt="Editar" class="icon"> Actualizar</button>
                         </form>
                         <form action="{{ url_for('catalogoMain') }}" method="POST" style="display:inline;">
                             <input type="hidden" name="id" value="{{ evento.id_evento }}">
                             <input type="hidden" name="accion" value="eliminar">
-                            <button class="btn-delete" type="submit">Eliminar</button>
+                            <button class="btn-delete" type="submit">  <img src="static/icons/delete1.png" alt="Eliminar" class="icon"> Eliminar</button>
                         </form>
                     </div>
 
