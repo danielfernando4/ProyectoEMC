@@ -6,16 +6,16 @@ class Conexion:
         
     def initConn(self):            
         # SERVER LOCAL FKN
-        user    = "admin"
-        pswd    = "admin"  
-        srvr    = "(localdb)\\ServidorDB"
-        dbase   = "MADRID_EMC"
+        # user    = "admin"
+        # pswd    = "admin"  
+        # srvr    = "(localdb)\\ServidorDB"
+        # dbase   = "MADRID_EMC"
         
         #SERVER MADRID
-        # user    = "sa"
-        # pswd    = "P@ssw0rd"  
-        # srvr    = "26.145.122.242\\MSSQLSERVERENTER"
-        # dbase   = "MADRID_EMC"
+        user    = "sa"
+        pswd    = "P@ssw0rd"  
+        srvr    = "26.145.122.242\\MSSQLSERVERENTER"
+        dbase   = "MADRID_EMC"
 
         # SERVER BARCELONA
         """
@@ -75,7 +75,7 @@ class ServicioProveedorDAC(Conexion):
     def getById(self, id):
         super().initConn()
         result = []
-        query = f"SELECT * FROM SERVICIO_PROVEEDOR_{self.id_oficina} WHERE ID_SERVICIO = ?"
+        query = f"SELECT * FROM VW_SERVICIO_PROVEEDOR WHERE ID_SERVICIO = ?"
         self.cursor.execute(query, id)
         if row:  
             result.append({
@@ -112,7 +112,7 @@ class ServicioProveedorDAC(Conexion):
     
     def update(self, item):
         super().initConn()
-        query = f"""UPDATE SERVICIO_PROVEEDOR_{self.id_oficina} 
+        query = f"""UPDATE VW_SERVICIO_PROVEEDOR
                    SET ID_PROVEEDOR = ?, DESCRIPCION_SER = ?, PRECIO_SER = ? 
                    WHERE ID_SERVICIO = ?"""                   
         try:
@@ -133,7 +133,7 @@ class ServicioProveedorDAC(Conexion):
     
     def delete(self, id):
         super().initConn()
-        query = f"DELETE FROM SERVICIO_PROVEEDOR_{self.id_oficina} WHERE ID_SERVICIO = ?"
+        query = f"DELETE FROM VW_SERVICIO_PROVEEDOR WHERE ID_SERVICIO = ?"
         try:
             self.cursor.execute(query, id)
             self.conn.commit()
@@ -292,7 +292,7 @@ class ContratoEventoDAC(Conexion):
     def getById(self, id_contrato):
         super().initConn()
         result = []
-        query = f"SELECT * FROM CONTRATO_EVENTO_{self.id_oficina} WHERE ID_CONTRATO = ?"
+        query = f"SELECT * FROM VW_CONTRATO_EVENTO WHERE ID_CONTRATO = ?"
         self.cursor.execute(query, (id_contrato))
         row = self.cursor.fetchone()
         super().closeConn()
@@ -343,7 +343,7 @@ class ContratoEventoDAC(Conexion):
 
     def update(self, item):
         super().initConn()
-        query = f"""UPDATE CONTRATO_EVENTO_{self.id_oficina} 
+        query = f"""UPDATE VW_CONTRATO_EVENTO 
                    SET ID_EVENTO = ?, ID_EMPLEADO = ?, ID_CLIENTE = ?, ID_SERVICIO = ?, 
                        FECHA_INICIO = ?, FECHA_FIN = ?, PRESUPUESTO = ?, LUGAR = ?, ESTADO_CONTRATO = ? 
                    WHERE ID_CONTRATO = ?"""
@@ -371,7 +371,7 @@ class ContratoEventoDAC(Conexion):
 
     def delete(self, id_contrato):
         super().initConn()
-        query = f"DELETE FROM CONTRATO_EVENTO_{self.id_oficina} WHERE ID_CONTRATO = ?"
+        query = f"DELETE FROM VW_CONTRATO_EVENTO WHERE ID_CONTRATO = ?"
         try:
             self.cursor.execute(query, (id_contrato))
             self.conn.commit()
@@ -382,7 +382,7 @@ class ContratoEventoDAC(Conexion):
             super().closeConn()
             return False
 
-
+# Editar
 class EmpleadoDAC(Conexion):
     def getAll(self):
         super().initConn()
@@ -425,7 +425,7 @@ class EmpleadoDAC(Conexion):
     def getById(self, id_empleado):
         super().initConn()
         result = []
-        query = f"SELECT * FROM EMPLEADO_{self.id_oficina} WHERE ID_EMPLEADO = ?"
+        query = f"SELECT * FROM VW_EMPLEADO WHERE ID_EMPLEADO = ?"
         self.cursor.execute(query, (id_empleado))
         row = self.cursor.fetchone()
         super().closeConn()
@@ -444,8 +444,8 @@ class EmpleadoDAC(Conexion):
     def add(self, item):
         super().initConn()
         query = f"""INSERT INTO EMPLEADO_{self.id_oficina} 
-                   (ID_EMPLEADO, ID_OFICINA, NOMBRE_EMP, APELLIDO_EMP, CARGO_EMP, TELEFONO_EMP, CORREO_EMP) 
-                   VALUES (?, ?, ?, ?, ?, ?, ?)"""
+                   (ID_EMPLEADO, ID_OFICINA, NOMBRE_EMP, APELLIDO_EMP, CARGO_EMP, TELEFONO_EMP, CORREO_EMP, SALARIO, FECHA_CONTRATACION) 
+                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"""
         try:
             self.cursor.execute(
                 query,
@@ -455,7 +455,9 @@ class EmpleadoDAC(Conexion):
                 item['apellido_emp'],
                 item['cargo_emp'],
                 item['telefono_emp'],
-                item['correo_emp']
+                item['correo_emp'],
+                item['salario'],
+                item['fecha_contratacion']
             )
             self.conn.commit()
             super().closeConn()
@@ -467,7 +469,7 @@ class EmpleadoDAC(Conexion):
 
     def update(self, item):
         super().initConn()
-        query = f"""UPDATE EMPLEADO_{self.id_oficina} 
+        query = f"""UPDATE VW_EMPLEADO
                    SET NOMBRE_EMP = ?, APELLIDO_EMP = ?, CARGO_EMP = ?, TELEFONO_EMP = ?, CORREO_EMP = ? 
                    WHERE ID_EMPLEADO = ?"""
         try:
@@ -490,7 +492,7 @@ class EmpleadoDAC(Conexion):
 
     def delete(self, id_empleado):
         super().initConn()
-        query = f"DELETE FROM EMPLEADO_{self.id_oficina} WHERE ID_EMPLEADO = ?"
+        query = f"DELETE FROM VW_EMPLEADO WHERE ID_EMPLEADO = ?"
         try:
             self.cursor.execute(query, (id_empleado))
             self.conn.commit()
@@ -534,26 +536,6 @@ class NominaDAC(Conexion):
             return result
         return None
 
-    def add(self, item):
-        super().initConn()
-        query = f"""INSERT INTO NOMINA_EMPLEADO 
-                   (ID_EMPLEADO, SALARIO, FECHA_CONTRATACION) 
-                   VALUES (?, ?, ?)"""
-        try:
-            self.cursor.execute(
-                query,
-                item['id_empleado'],
-                item['salario'],
-                item['fecha_contratacion']
-            )
-            self.conn.commit()
-            super().closeConn()
-            return True
-        except Exception as ex:
-            print(f"Error capturado: {ex}")
-            super().closeConn()
-            return False
-
     def update(self, item):
         super().initConn()
         query = f"""UPDATE NOMINA_EMPLEADO
@@ -566,19 +548,6 @@ class NominaDAC(Conexion):
                 item['fecha_contratacion'],
                 item['id_empleado']
             )
-            self.conn.commit()
-            super().closeConn()
-            return True
-        except Exception as ex:
-            print(f"Error capturado: {ex}")
-            super().closeConn()
-            return False
-
-    def delete(self, id_empleado):
-        super().initConn()
-        query = f"DELETE FROM NOMINA_EMPLEADO WHERE ID_EMPLEADO = ?"
-        try:
-            self.cursor.execute(query, (id_empleado))
             self.conn.commit()
             super().closeConn()
             return True
@@ -624,7 +593,7 @@ class EventoDAC(Conexion):
     def getById(self, id_evento):
         super().initConn()
         result = []
-        query = f"SELECT * FROM EVENTO_{self.id_oficina} WHERE ID_EVENTO = ?"
+        query = f"SELECT * FROM VW_EVENTO WHERE ID_EVENTO = ?"
         self.cursor.execute(query, (id_evento,))
         row = self.cursor.fetchone()
         super().closeConn()
@@ -639,7 +608,7 @@ class EventoDAC(Conexion):
 
     def add(self, item):
         super().initConn()
-        query = f"""INSERT INTO EVENTO_{self.id_oficina} 
+        query = f"""INSERT INTO VW_EVENTO 
                    (ID_EVENTO, ID_OFICINA, TIPO_EVENTO, COSTO_REFERENCIAL) 
                    VALUES (?, ?, ?, ?)"""
         try:
@@ -660,7 +629,7 @@ class EventoDAC(Conexion):
 
     def update(self, item):
         super().initConn()
-        query = f"""UPDATE EVENTO_{self.id_oficina} 
+        query = f"""UPDATE VM_EVENTO 
                    SET TIPO_EVENTO = ?, COSTO_REFERENCIAL = ?
                    WHERE ID_EVENTO = ?"""
         try:
@@ -680,7 +649,7 @@ class EventoDAC(Conexion):
 
     def delete(self, id_evento):
         super().initConn()
-        query = f"DELETE FROM EVENTO_{self.id_oficina} WHERE ID_EVENTO = ?"
+        query = f"DELETE FROM VW_EVENTO WHERE ID_EVENTO = ?"
         try:
             self.cursor.execute(query, (id_evento))
             self.conn.commit()
@@ -728,7 +697,7 @@ class ProveedorDAC(Conexion):
     def getById(self, id_proveedor):
         super().initConn()
         result = []
-        query = f"SELECT * FROM PROVEEDOR_{self.id_oficina} WHERE ID_PROVEEDOR = ?"
+        query = f"SELECT * FROM VW_PROVEEDOR WHERE ID_PROVEEDOR = ?"
         self.cursor.execute(query, (id_proveedor))
         row = self.cursor.fetchone()
         super().closeConn()
@@ -743,7 +712,7 @@ class ProveedorDAC(Conexion):
 
     def add(self, item):
         super().initConn()
-        query = f"""INSERT INTO PROVEEDOR_{self.id_oficina} 
+        query = f"""INSERT INTO VW_PROVEEDOR 
                    (ID_PROVEEDOR, ID_OFICINA, NOMBRE_PRO, ESPECIALIDAD_PRO) 
                    VALUES (?, ?, ?, ?)"""
         try:
@@ -764,7 +733,7 @@ class ProveedorDAC(Conexion):
 
     def update(self, item):
         super().initConn()
-        query = f"""UPDATE PROVEEDOR_{self.id_oficina} 
+        query = f"""UPDATE Vw_PROVEEDOR 
                    SET NOMBRE_PRO = ?, ESPECIALIDAD_PRO = ? 
                    WHERE ID_PROVEEDOR = ?"""
         try:
@@ -784,7 +753,7 @@ class ProveedorDAC(Conexion):
 
     def delete(self, id_proveedor):
         super().initConn()
-        query = f"DELETE FROM PROVEEDOR_{self.id_oficina} WHERE ID_PROVEEDOR = ?"
+        query = f"DELETE FROM VW_PROVEEDOR WHERE ID_PROVEEDOR = ?"
         try:
             self.cursor.execute(query, (id_proveedor))
             self.conn.commit()
