@@ -6,19 +6,19 @@ class Conexion:
         
     def initConn(self):            
         # SERVER LOCAL FKN
-<<<<<<< HEAD
+
         """
         user    = "admin"
         pswd    = "admin"  
         srvr    = "(localdb)\\ServidorDB"
         dbase   = "MADRID_EMC"
         """
-=======
+
         # user    = "admin"
         # pswd    = "admin"  
         # srvr    = "(localdb)\\ServidorDB"
         # dbase   = "MADRID_EMC"
->>>>>>> 34dd87012be07a1c9a375a7fd57b7df23a0854f1
+
         
         #SERVER MADRID
         user    = "sa"
