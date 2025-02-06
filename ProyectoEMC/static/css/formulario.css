@@ -137,6 +137,10 @@ input:focus {
     background-color: #f44336 !important; /* Rojo para el botón cancelar */
 }
 
+.btn-cancelar:hover {
+    background-color: #f44336 !important; /* Rojo para el botón cancelar */
+}
+
 
 .btn-container button:hover {
     background-color: #45a049;

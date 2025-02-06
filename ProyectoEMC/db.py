@@ -87,6 +87,7 @@ class ServicioProveedorDAC(Conexion):
         result = []
         query = f"SELECT * FROM VW_SERVICIO_PROVEEDOR WHERE ID_SERVICIO = ?"
         self.cursor.execute(query, id)
+        row = self.cursor.fetchone()
         if row:  
             result.append({
                 'id_servicio': row[0],
