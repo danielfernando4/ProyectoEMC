@@ -11,7 +11,16 @@
 
 
 <div class="form-container">
-    <h2>Registrar nuevo servicio</h2>
+
+    {% if accion == 'agregar' %}
+    <h2>Registrar un nuevo servicio</h2>
+    {% elif accion == 'actualizar' %}
+    <h2>Actualizar servicio</h2>
+    {% endif %}
+
+
+
+
     <form action="{{ url_for('servicioMain') }}" method="POST">
 
 

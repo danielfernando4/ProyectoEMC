@@ -10,7 +10,12 @@
 {% block content%}
 <div class="form-container">
     
-    <h2>Agregar un nuevo cliente</h2>
+    {% if accion == 'agregar' %}
+    <h2>Registrar un nuevo cliente</h2>
+    {% elif accion == 'actualizar' %}
+    <h2>Actualizar cliente</h2>
+    {% endif %}
+
 
     <form action="{{ url_for('clienteMain') }}" method="POST">
 

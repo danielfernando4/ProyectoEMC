@@ -11,7 +11,12 @@
 
 <div class="form-container">
 
-    <h2>Agregar una nueva nomina</h2>
+    {% if accion == 'agregar' %}
+    <h2>Registrar una nueva nómina</h2>
+    {% elif accion == 'actualizar' %}
+    <h2>Actualizar nómina</h2>
+    {% endif %}
+
 
     <form action="{{ url_for('nominaMain') }}" method="POST">
 

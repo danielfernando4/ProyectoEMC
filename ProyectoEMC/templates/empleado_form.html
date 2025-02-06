@@ -11,7 +11,15 @@
 
 <div class="form-container">
 
-    <h2>Agregar un nuevo empleado</h2>
+    {% if accion == 'agregar' %}
+    <h2>Registrar un nuevo empleado</h2>
+    {% elif accion == 'actualizar' %}
+    <h2>Actualizar empleado</h2>
+    {% endif %}
+
+
+
+
     <form action="{{ url_for('empleadoMain') }}" method="POST">
 
 

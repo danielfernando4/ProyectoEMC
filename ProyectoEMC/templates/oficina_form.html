@@ -13,7 +13,12 @@
 
 <div class="form-container">
 
-    <h2>Registrar nueva oficina</h2>
+    {% if accion == 'agregar' %}
+    <h2>Registrar una nueva oficina</h2>
+    {% elif accion == 'actualizar' %}
+    <h2>Actualizar oficina</h2>
+    {% endif %}
+
 
     <form action="{{ url_for('oficinaMain') }}" method="POST">
 

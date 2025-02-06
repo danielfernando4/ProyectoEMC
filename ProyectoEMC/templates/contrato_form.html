@@ -10,7 +10,17 @@
 {% block content%}
 
 <div class="form-container">
-    <h2>Agregar un nuevo contrato de evento</h2>
+
+
+    {% if accion == 'agregar' %}
+    <h2>Registrar un nuevo contrato</h2>
+    {% elif accion == 'actualizar' %}
+    <h2>Actualizar contrato</h2>
+    {% endif %}
+
+
+
+
     <form action="{{ url_for('contratoMain') }}" method="POST">
 
 
