@@ -6,7 +6,6 @@ def rutas(app):
     def main():
         return redirect(url_for("catalogoMain"))
 
-
     @app.route("/base")
     def base():
         return render_template("base.html")
