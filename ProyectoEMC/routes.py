@@ -72,12 +72,6 @@ def rutas(app):
                 
     #     eventos = eventoDAC.getAll()
     #     return render_template("catalogo_main.html", eventos = eventos)
-<<<<<<< HEAD
-
-
-=======
-    
->>>>>>> 18bbbbf1dbc97fc020d0a1d9bf982f7129392d26
     @app.route("/catalogo-main", methods=['POST', 'GET'])
     def catalogoMain():
         eventoDAC = EventoDAC()
