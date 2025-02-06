@@ -1,0 +1,87 @@
+/* Reset para quitar márgenes y centrar correctamente */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-image: url("/static/images/evento.jpg"); /* Ruta de la imagen */
+    background-size: cover; /* Ajusta la imagen al tamaño de la pantalla */
+    display: flex;
+    justify-content: center;  /* Centra horizontalmente */
+    align-items: center;  /* Centra verticalmente */
+    height: 100vh;  /* Ocupa toda la altura de la pantalla */
+    background-color: #f0f0f0;
+}
+
+.container {
+    
+    width: 80%; /* El 80% del ancho de la pantalla */
+    max-width: 850px; /* Máximo 600px de ancho */
+    height: 75vh; /* 50% de la altura de la pantalla */
+    max-height: 500px; /* Máximo 400px de alto */
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    /*justify-content: center;*/
+   /* align-items: center;*/
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    font-size: 1.2rem;
+
+
+}
+
+
+
+
+.botones {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: row; /* Elementos en línea */
+    align-items: center; /* Alinear verticalmente */
+    justify-content: center; /* Centrar horizontalmente */
+    gap: 60px; /* Espaciado entre los botones */
+}
+
+
+.contenedor-enunciado {
+    margin-top: 70px;
+    display: flex;
+    flex-direction: row; /* Elementos en línea */
+    align-items: center; /* Alinear verticalmente */
+    justify-content: center; /* Centrar en el eje principal */
+    gap: 15px; /* Espaciado entre el logo y el texto */
+}
+
+
+.container h3 {
+    margin-top: 30px;
+    margin-left: 15px;
+}
+
+.logo img {
+    width: 100px;
+}
+
+
+
+
+.botones button {
+    padding: 6px 12px;
+    background-color: #5fec43;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 30px;
+    cursor: pointer;
+    transition: background-color 0.5s;
+    width:200px;
+    height: 80px;
+}
+
+.botones button:hover {
+    background-color: #48b633;
+}

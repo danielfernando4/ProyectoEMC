@@ -1,10 +1,39 @@
-from flask import render_template, request, redirect, url_for
-from db import *
+from flask import render_template, request, redirect, url_for, session
+from db import * 
+
 
 def rutas(app):
-    @app.route("/")
-    def main():
-        return redirect(url_for("catalogoMain"))
+
+
+    app.secret_key = "clave_secreta"  # Necesario para el manejo de sesiones
+
+    @app.before_request
+    def validar_sesion():
+        rutas_protegidas = ["/catalogo-main", "/catalogo-form", "/cliente-main", "/cliente-form", 
+                            "/contrato-main", "/contrato-form", "/empleado-main", "/empleado-form", "/nomina-main"]
+        if request.path in rutas_protegidas and "oficina" not in session:
+            return redirect(url_for("inicio"))
+        
+
+
+    @app.route("/", methods=['GET', 'POST'])
+    def inicio():
+        if request.method == 'POST':
+            oficina = request.form.get("oficina")
+            session["oficina"] = oficina  # Guarda la oficina en la sesión
+            print(f"Oficina seleccionada: {session['oficina']}")  # Debugging
+            return redirect(url_for("catalogoMain"))  # Redirigir a la siguiente página
+
+        return render_template("inicio.html")
+    
+
+    @app.route("/logout")
+    def logout():
+        session.clear()  # Elimina todos los datos de sesión
+        return redirect(url_for("inicio"))  # Redirige a la página de inicio
+
+
+
 
     @app.route("/base")
     def base():
@@ -43,6 +72,8 @@ def rutas(app):
                 
     #     eventos = eventoDAC.getAll()
     #     return render_template("catalogo_main.html", eventos = eventos)
+
+
     @app.route("/catalogo-main", methods=['POST', 'GET'])
     def catalogoMain():
         eventoDAC = EventoDAC()
