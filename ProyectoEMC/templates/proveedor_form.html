@@ -11,22 +11,37 @@
 
 
 <div class="form-container">
-    <h2>Registrar nuevo proovedor</h2>
+    
+
+    {% if accion == 'agregar' %}
+    <h2>Registrar un nuevo proveedor</h2>
+    {% elif accion == 'actualizar' %}
+    <h2>Actualizar proveedor</h2>
+    {% endif %}
+
     
     <form action="{{ url_for('proveedorMain') }}" method="POST">
 
 
+        {% if accion == 'agregar'%}
         <div class="form-group">
             <label for="id_proveedor">ID:</label>
             <input type="text" id="id_proveedor" name="id_proveedor" value="{{ proveedor.id_proveedor }}" required>
         </div>
-
-
         <div class="form-group">
             <label for="id_oficina">ID Oficina :</label>
             <input type="text" id="id_oficina" name="id_oficina" value="{{ proveedor.id_oficina }}" required>
         </div>
-
+        {% elif accion == 'actualizar'%}
+        <div class="form-group">
+            <label for="id_proveedor">ID:</label>
+            <input type="text" id="id_proveedor" name="id_proveedor" value="{{ proveedor.id_proveedor }}" readonly>
+        </div>
+        <div class="form-group">
+            <label for="id_oficina">ID Oficina :</label>
+            <input type="text" id="id_oficina" name="id_oficina" value="{{ proveedor.id_oficina }}" readonly>
+        </div>
+        {% endif %}
 
 
         <div class="form-group">
@@ -57,7 +72,9 @@
             {% elif accion == 'actualizar' %}
 
 
-            <button type="submit">Actualizar Datos</button>
+            <div>
+                <button type="submit">Actualizar Datos</button>
+            </div>
 
             {% endif %}
             <div>

@@ -11,15 +11,26 @@
 
 <div class="form-container">
 
-    <h2>Agregar una nueva nomina</h2>
+    {% if accion == 'agregar' %}
+    <h2>Registrar una nueva nómina</h2>
+    {% elif accion == 'actualizar' %}
+    <h2>Actualizar nómina</h2>
+    {% endif %}
+
 
     <form action="{{ url_for('nominaMain') }}" method="POST">
 
+        {% if accion == 'agregar' %}
         <div class="form-group">
             <label for="id_empleado">ID:</label>
             <input type="text" id="id_empleado" name="id_empleado" value="{{ empleado.id_empleado }}" required>
         </div>
-
+        {% elif accion == 'actualizar' %}
+        <div class="form-group">
+            <label for="id_empleado">ID:</label>
+            <input type="text" id="id_empleado" name="id_empleado" value="{{ empleado.id_empleado }}" readonly>
+        </div>
+        {% endif %}
 
         <div class="form-group">
             <label for="salario">Salario:</label>
@@ -47,7 +58,9 @@
             {% elif accion == 'actualizar' %}
 
 
-            <button type="submit">Actualizar Datos</button>
+            <div>
+                <button type="submit">Actualizar Datos</button>
+            </div>
 
             {% endif %}
             <div>

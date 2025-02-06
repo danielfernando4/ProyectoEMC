@@ -13,14 +13,27 @@
 
 <div class="form-container">
 
-    <h2>Registrar nueva oficina</h2>
+    {% if accion == 'agregar' %}
+    <h2>Registrar una nueva oficina</h2>
+    {% elif accion == 'actualizar' %}
+    <h2>Actualizar oficina</h2>
+    {% endif %}
+
 
     <form action="{{ url_for('oficinaMain') }}" method="POST">
 
+
+        {% if accion == 'agregar'%}
         <div class="form-group">
             <label for="id_oficina">ID:</label>
             <input type="text" id="id_oficina" name="id_oficina" value="{{ oficina.id_oficina }}" required>
         </div>
+        {% elif accion == 'actualizar'%}
+        <div class="form-group">
+            <label for="id_oficina">ID:</label>
+            <input type="text" id="id_oficina" name="id_oficina" value="{{ oficina.id_oficina }}" readonly>
+        </div>
+        {% endif %}
 
 
         <div class="form-group">
@@ -50,7 +63,9 @@
             {% elif accion == 'actualizar' %}
 
 
-            <button type="submit">Actualizar Datos</button>
+            <div>
+                <button type="submit">Actualizar Datos</button>
+            </div>
 
             {% endif %}
             <div>
