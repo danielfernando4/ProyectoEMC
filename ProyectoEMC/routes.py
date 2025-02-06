@@ -10,24 +10,60 @@ def rutas(app):
     def base():
         return render_template("base.html")
 
-    #nuestros endpoints
-    @app.route("/catalogo-main", methods = ['POST', 'GET'])
+
+    # #nuestros endpoints
+    # @app.route("/catalogo-main", methods = ['POST', 'GET'])
+    # def catalogoMain():
+    #     eventoDAC = EventoDAC()
+    #     if request.method == 'GET':
+    #         eventos = eventoDAC.getAll()
+    #         return render_template("catalogo_main.html", eventos = eventos)
+        
+    #     accion = request.form.get('accion')
+    #     id = request.form.get('id')
+        
+    #     if accion == "consultar_oficinas":
+    #         eventos = eventoDAC.getAllOffices()
+    #         return render_template("catalogo_main.html", eventos = eventos)           
+        
+    #     if accion == "eliminar":
+    #         eventoDAC.delete(id)
+    #     else:                    
+    #         evento = {
+    #             'id_evento': request.form.get('id_evento'),
+    #             'id_oficina': request.form.get('id_oficina'),
+    #             'tipo_evento': request.form.get('tipo_evento'),
+    #             'costo_referencial': float(request.form.get('costo_referencial'))
+    #         }
+
+    #         if accion == "agregar":
+    #             eventoDAC.add(evento)
+    #         elif accion == "actualizar":
+    #             eventoDAC.update(evento) 
+                
+    #     eventos = eventoDAC.getAll()
+    #     return render_template("catalogo_main.html", eventos = eventos)
+    @app.route("/catalogo-main", methods=['POST', 'GET'])
     def catalogoMain():
         eventoDAC = EventoDAC()
+        selected_radio = "locales"  # Valor por defecto
+
         if request.method == 'GET':
             eventos = eventoDAC.getAll()
-            return render_template("catalogo_main.html", eventos = eventos)
-        
+            return render_template("catalogo_main.html", eventos=eventos, selected_radio=selected_radio)
+
         accion = request.form.get('accion')
-        id = request.form.get('id')
-        
+        selected_radio = request.form.get('radio', "locales")  # Obtener valor del radio button
+
         if accion == "consultar_oficinas":
             eventos = eventoDAC.getAllOffices()
-            return render_template("catalogo_main.html", eventos = eventos)           
-        
+            return render_template("catalogo_main.html", eventos=eventos, selected_radio=selected_radio)
+
+        id = request.form.get('id')
+
         if accion == "eliminar":
             eventoDAC.delete(id)
-        else:                    
+        else:
             evento = {
                 'id_evento': request.form.get('id_evento'),
                 'id_oficina': request.form.get('id_oficina'),
@@ -38,10 +74,11 @@ def rutas(app):
             if accion == "agregar":
                 eventoDAC.add(evento)
             elif accion == "actualizar":
-                eventoDAC.update(evento) 
-                
+                eventoDAC.update(evento)
+
         eventos = eventoDAC.getAll()
-        return render_template("catalogo_main.html", eventos = eventos)
+        return render_template("catalogo_main.html", eventos=eventos, selected_radio=selected_radio)
+
 
     @app.route("/catalogo-form", methods = ['POST', 'GET'])
     def catalogoForm():
