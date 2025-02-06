@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="static/css/tableDesign.css">
 <link rel="stylesheet" href="static/css/busqueda.css">
 <link rel="stylesheet" href="static/css/buttonAgregar.css">
-<link rel="stylesheet" href="static/css/radioButtons.css">
+<link rel="stylesheet" href="static/css/buttonConsulta.css">
 <link rel="stylesheet" href="static/css/cuadroEliminacion.css">
 {% endblock %}
 
@@ -22,35 +22,17 @@
     </div>
    
     <!-- Agregar botones de consulta -->
-    <form action="{{ url_for('catalogoMain') }}" method="POST">
-        <input type="hidden" name="accion" value="consultar_oficinas">
-        <button type="submit">Consultar en todas las oficinas</button>  
 
-    </form>
-    <form action="{{ url_for('catalogoMain') }}" method="GET">
-        <button type="submit">Consultar localmente</button>  
-
-    </form>     
-
-    <!-- Radio Buttons-->
-    <div class="container">
-        <form id="myForm" action="{{ url_for('catalogoMain') }}" method="POST">
-            <input type="hidden" name="accion" id="accionInput" value="consultar_locales">
-    
-            <label>
-                <input type="radio" name="radio" value="locales" checked="">
-                <span>Consultar eventos locales</span>
-            </label>
-            <label>
-                <input type="radio" name="radio" value="generales">
-                <span>Consultar eventos generales</span>
-            </label>
+    <div style="display: flex; gap: 10px;">
+        <form action="{{ url_for('catalogoMain') }}" method="POST">
+            <input type="hidden" name="accion" value="consultar_oficinas">
+            <button type="submit" class="custom-button" id="boton1" onclick="setActiveButton(this, 'boton1')">Consultar eventos generales</button>  
         </form>
-    </div>
-    
-    
+        <form action="{{ url_for('catalogoMain') }}" method="GET">
+            <button type="submit" class="custom-button" id="boton2" onclick="setActiveButton(this, 'boton2')">Consultar eventos locales</button>  
+        </form>
+    </div>    
 
-    
     <!-- Agregar Cliente (Button)--> 
     <form action="{{ url_for('catalogoForm') }}" method="GET">
     <button class="Documents-btn">
@@ -224,5 +206,5 @@
 {% block extra_js %}
     <script src="static/js/busqueda.js"></script>
     <script src="static/js/eliminarConfirmacion.js"></script>
-    <script src="static/js/radioButton.js"></script>
+    <script src="static/js/buttonConsulta.js"></script>
 {% endblock %}

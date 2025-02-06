@@ -1,0 +1,24 @@
+.custom-button {
+  display: flex;
+  background-color: #f3f7fe;
+  color: #001E41;
+  border: none;
+  cursor: pointer;
+  border-radius: 8px;
+  width: 200px; 
+  height: 45px;
+  transition: 0.3s;
+  justify-content: center;
+  align-items: center;
+}
+
+.custom-button:hover {
+  background-color: #001E41;
+  box-shadow: 0 0 0 5px #3b83f65f;
+  color: #fff;
+}
+
+.active {
+  background-color: #001E41;
+  color: #fff;
+}
