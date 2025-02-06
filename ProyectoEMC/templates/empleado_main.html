@@ -25,11 +25,11 @@
 
     <!-- Agregar botones de consulta -->
     <div style="display: flex; gap: 10px;">
-        <form action="{{ url_for('poner') }}" method="POST">
+        <form action="{{ url_for('empleadoMain') }}" method="POST">
             <input type="hidden" name="accion" value="consultar_oficinas">
             <button type="submit" class="custom-button" id="boton1" onclick="setActiveButton(this, 'boton1')">Consultar empleados generales</button>  
         </form>
-        <form action="{{ url_for('poner') }}" method="GET">
+        <form action="{{ url_for('empleadoMain') }}" method="GET">
             <button type="submit" class="custom-button" id="boton2" onclick="setActiveButton(this, 'boton2')">Consultar empleados locales</button>  
         </form>
     </div>    
