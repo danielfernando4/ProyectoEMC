@@ -24,19 +24,25 @@
     <form action="{{ url_for('servicioMain') }}" method="POST">
 
 
-
+        {% if accion == 'agregar'%}
         <div class="form-group">
             <label for="id_servicio">ID:</label>
             <input type="text" id="id_servicio" name="id_servicio" value="{{ servicio['id_servicio'] }}" required>
         </div>
-
-
-
         <div class="form-group">
             <label for="id_oficina">ID Oficina:</label>
             <input type="text" id="id_oficina" name="id_oficina" value="{{ servicio.id_oficina }}" required>
         </div>
-
+        {% elif accion == 'actualizar'%}
+        <div class="form-group">
+            <label for="id_servicio">ID:</label>
+            <input type="text" id="id_servicio" name="id_servicio" value="{{ servicio['id_servicio'] }}" readonly>
+        </div>
+        <div class="form-group">
+            <label for="id_oficina">ID Oficina:</label>
+            <input type="text" id="id_oficina" name="id_oficina" value="{{ servicio.id_oficina }}" readonly>
+        </div>
+        {% endif %}
 
 
         <div class="form-group">
@@ -76,7 +82,9 @@
             {% elif accion == 'actualizar' %}
 
 
-            <button type="submit">Actualizar Datos</button>
+            <div>
+                <button type="submit">Actualizar Datos</button>
+            </div>
 
             {% endif %}
             <div>

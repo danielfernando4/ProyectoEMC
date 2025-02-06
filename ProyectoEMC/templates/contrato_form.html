@@ -24,18 +24,25 @@
     <form action="{{ url_for('contratoMain') }}" method="POST">
 
 
+        {% if accion == 'agregar'%}
         <div class="form-group">
             <label for="id_contrato">ID:</label>
             <input type="text" id="id_contrato" name="id_contrato" value="{{ contrato['id_contrato'] }}" required>
         </div>
-        
-        
         <div class="form-group">
             <label for="id_oficina">ID Oficina:</label>
             <input type="text" id="id_oficina" name="id_oficina" value="{{ contrato.id_oficina }}" required>
         </div>
-        
-        
+        {% elif accion == 'actualizar'%}        
+        <div class="form-group">
+            <label for="id_contrato">ID:</label>
+            <input type="text" id="id_contrato" name="id_contrato" value="{{ contrato['id_contrato'] }}" readonly>
+        </div>
+        <div class="form-group">
+            <label for="id_oficina">ID Oficina:</label>
+            <input type="text" id="id_oficina" name="id_oficina" value="{{ contrato.id_oficina }}" readonly>
+        </div>
+        {% endif %}
         
         <div class="form-group">
             <label for="id_evento">ID Evento:</label>
@@ -106,7 +113,9 @@
             {% elif accion == 'actualizar' %}
         
         
-            <button type="submit">Actualizar Datos</button>
+            <div>
+                <button type="submit">Actualizar Datos</button>
+            </div>
         
             {% endif %}
             <div>

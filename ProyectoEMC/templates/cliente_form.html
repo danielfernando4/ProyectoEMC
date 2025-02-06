@@ -20,11 +20,17 @@
     <form action="{{ url_for('clienteMain') }}" method="POST">
 
 
-
+        {% if accion == 'agregar' %}
         <div class="form-group">
             <label for="id_cliente">ID:</label>
             <input type="text" id="id_cliente" name="id_cliente" value="{{ cliente['id_cliente'] }}" required>
         </div>
+        {% elif accion == 'actualizar'%}
+        <div class="form-group">
+            <label for="id_cliente">ID:</label>
+            <input type="text" id="id_cliente" name="id_cliente" value="{{ cliente['id_cliente'] }}" readonly>
+        </div>
+        {% endif %}
 
 
 
@@ -74,9 +80,9 @@
             </div>
             {% elif accion == 'actualizar' %}
 
-
-            <button type="submit">Actualizar Datos</button>
-
+            <div>
+                <button type="submit">Actualizar Datos</button>
+            </div>
             {% endif %}
             <div>
                 <button class="btn-cancelar" onclick="history.back()">Cancelar</button>
