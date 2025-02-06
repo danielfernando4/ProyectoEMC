@@ -10,7 +10,6 @@ def rutas(app):
     def base():
         return render_template("base.html")
 
-
     #nuestros endpoints
     @app.route("/catalogo-main", methods = ['POST', 'GET'])
     def catalogoMain():
