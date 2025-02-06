@@ -43,6 +43,7 @@ def rutas(app):
                 
     #     eventos = eventoDAC.getAll()
     #     return render_template("catalogo_main.html", eventos = eventos)
+    
     @app.route("/catalogo-main", methods=['POST', 'GET'])
     def catalogoMain():
         eventoDAC = EventoDAC()

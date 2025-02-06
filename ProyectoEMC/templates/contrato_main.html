@@ -5,6 +5,7 @@
 <link rel="stylesheet" href="static/css/busqueda.css">
 <link rel="stylesheet" href="static/css/buttonAgregar.css">
 <link rel="stylesheet" href="static/css/cuadroEliminacion.css">
+<link rel="stylesheet" href="static/css/buttonConsulta.css">
 {% endblock %}
 
 {% block title%} Contratos de Evento {% endblock %}
@@ -19,6 +20,17 @@
         <input id="searchInputContratos" class="search__input" type="text" placeholder="Buscar...">
     </div>
    
+    <!-- Agregar botones de consulta -->
+    <div style="display: flex; gap: 10px;">
+        <form action="{{ url_for('poner') }}" method="POST">
+            <input type="hidden" name="accion" value="consultar_oficinas">
+            <button type="submit" class="custom-button" id="boton1" onclick="setActiveButton(this, 'boton1')">Consultar contratos generales</button>  
+        </form>
+        <form action="{{ url_for('poner') }}" method="GET">
+            <button type="submit" class="custom-button" id="boton2" onclick="setActiveButton(this, 'boton2')">Consultar contratos locales</button>  
+        </form>
+    </div>    
+
     <!-- Agregar Cliente (Button)--> 
       
     <form action="{{ url_for('contratoForm') }}" method="GET">
@@ -211,4 +223,5 @@
 {% block extra_js %}
     <script src="static/js/busqueda.js"></script>
     <script src="static/js/eliminarConfirmacion.js"></script>
+    <script src="static/js/buttonConsulta.js"></script>
 {% endblock %}
