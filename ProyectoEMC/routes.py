@@ -10,6 +10,9 @@ def rutas(app):
 
     app.secret_key = "clave_secreta" 
 
+
+   
+
     @app.before_request
     def validar_sesion():
         rutas_protegidas = ["/catalogo-main", "/catalogo-form", "/cliente-main", "/cliente-form", 
@@ -17,7 +20,9 @@ def rutas(app):
         if request.path in rutas_protegidas and "oficina" not in session:
             return redirect(url_for("inicio"))
         
-
+    @app.context_processor
+    def inject_variables():
+        return dict(modo=session.get("oficina", None))  # Esto puede cambiar dinámicamente
 
     @app.route("/", methods=['GET', 'POST'])
     def inicio():
