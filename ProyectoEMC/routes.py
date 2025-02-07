@@ -2,10 +2,13 @@ from flask import render_template, request, redirect, url_for, session
 from db import * 
 
 
+import idoficina
+
+
 def rutas(app):
 
 
-    app.secret_key = "clave_secreta"  # Necesario para el manejo de sesiones
+    app.secret_key = "clave_secreta" 
 
     @app.before_request
     def validar_sesion():
@@ -21,6 +24,7 @@ def rutas(app):
         if request.method == 'POST':
             oficina = request.form.get("oficina")
             session["oficina"] = oficina  # Guarda la oficina en la sesión
+            idoficina.id_oficina = session["oficina"]
             print(f"Oficina seleccionada: {session['oficina']}")  # Debugging
             return redirect(url_for("catalogoMain"))  # Redirigir a la siguiente página
 
@@ -163,6 +167,7 @@ def rutas(app):
     
     @app.route("/contrato-main", methods = ['POST', 'GET'])
     def contratoMain():
+        selected_radio = "locales"
         contratoDAC = ContratoEventoDAC()
         if request.method == 'GET':
             contratos = contratoDAC.getAll()
@@ -177,6 +182,12 @@ def rutas(app):
         
         if accion == "eliminar":
             contratoDAC.delete(id)
+
+
+
+        if accion == "consultar_oficinas":
+            contratos = contratoDAC.getAllOffices()
+            return render_template("contrato_main.html", contratos=contratos, selected_radio=selected_radio)
         else:                    
             contrato = {
                 'id_contrato': request.form.get('id_contrato'),
@@ -211,6 +222,7 @@ def rutas(app):
 
     @app.route("/empleado-main", methods = ['POST', 'GET'])
     def empleadoMain():
+        selected_radio = "locales"  # Valor por defecto
         empleadoDAC = EmpleadoDAC()
         if request.method == 'GET':
             empleados = empleadoDAC.getAll()
@@ -225,6 +237,11 @@ def rutas(app):
         
         if accion == "eliminar":
             empleadoDAC.delete(id)
+
+
+        if accion == "consultar_oficinas":
+            empleados = empleadoDAC.getAllOffices()
+            return render_template("empleado_main.html", empleados=empleados, selected_radio=selected_radio)
         else:                    
             empleado = {
                 'id_empleado': request.form.get('id_empleado'),
@@ -295,6 +312,7 @@ def rutas(app):
 
     @app.route("/proveedor-main", methods = ['POST', 'GET'])
     def proveedorMain():
+        selected_radio = "locales"  # Valor por defecto
         proveedorDAC = ProveedorDAC()
         if request.method == 'GET':
             proveedores = proveedorDAC.getAll()
@@ -306,6 +324,10 @@ def rutas(app):
         if accion == "buscar":
              proveedores = proveedorDAC.getById(id) if id else proveedorDAC.getAll()
              return render_template("proveedor_main.html", proveedores = proveedores)         
+        
+        if accion == "consultar_oficinas":
+            proveedores = proveedorDAC.getAllOffices()
+            return render_template("proveedor_main.html", proveedores=proveedores, selected_radio=selected_radio)
         
         if accion == "eliminar":
             proveedorDAC.delete(id)
@@ -377,6 +399,7 @@ def rutas(app):
     
     @app.route("/servicio-main", methods = ['POST', 'GET'])
     def servicioMain():
+        selected_radio = "locales"
         servicioDAC = ServicioProveedorDAC()
         if request.method == 'GET':
             servicios = servicioDAC.getAll()
@@ -391,6 +414,13 @@ def rutas(app):
         
         if accion == "eliminar":
             servicioDAC.delete(id)
+
+
+        if accion == "consultar_oficinas":
+            servicios = servicioDAC.getAllOffices()
+            print(servicios)
+            return render_template("servicio_main.html", servicios=servicios, selected_radio=selected_radio)
+        
         else:                    
             servicio = {
                     'id_servicio': request.form.get('id_servicio'),

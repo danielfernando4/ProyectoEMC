@@ -3,8 +3,13 @@ from sqlalchemy import Column, CHAR, String, Integer, DateTime, Numeric, Foreign
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 
+
+import idoficina
 # DEPENDIENDO DEL SERVIDOR 
-id_oficina = '02'
+
+#id_oficina = '02'
+id_oficina = idoficina.id_oficina
+
 
 # Tabla CLIENTE   
 class Cliente(db.Model):

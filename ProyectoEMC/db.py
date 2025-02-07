@@ -1,11 +1,26 @@
 import pyodbc
+import idoficina
 class Conexion:
     def __init__(self):
-        # self.id_oficina = '01'
-        self.id_oficina = '02'
+        self.id_oficina = idoficina.id_oficina
+        #self.id_oficina = '02'
         
     def initConn(self):            
         # SERVER LOCAL FKN
+
+        if(self.id_oficina == '01'):
+            #SERVER MADRID
+            user    = "sa"
+            pswd    = "P@ssw0rd"  
+            srvr    = "26.145.122.242\\MSSQLSERVERENTER"
+            dbase   = "MADRID_EMC"
+        elif(self.id_oficina == '02'):
+            # SERVER BARCELONA        
+            user    = "sa"
+            pswd    = "P@ssw0rd"  
+            srvr    = "26.225.244.188\\MSSQLSERVERENTER"
+            dbase   = "BARCELONA_EMC"
+        
 
         """
         user    = "admin"
@@ -21,16 +36,16 @@ class Conexion:
 
         
         #SERVER MADRID
-        # user    = "sa"
-        # pswd    = "P@ssw0rd"  
-        # srvr    = "26.145.122.242\\MSSQLSERVERENTER"
-        # dbase   = "MADRID_EMC"
+        #user    = "sa"
+        #pswd    = "P@ssw0rd"  
+        #srvr    = "26.145.122.242\\MSSQLSERVERENTER"
+        #dbase   = "MADRID_EMC"
 
         # SERVER BARCELONA        
-        user    = "sa"
-        pswd    = "P@ssw0rd"  
-        srvr    = "26.225.244.188\\MSSQLSERVERENTER"
-        dbase   = "BARCELONA_EMC"
+        #user    = "sa"
+        #pswd    = "P@ssw0rd"  
+        #srvr    = "26.225.244.188\\MSSQLSERVERENTER"
+        #dbase   = "BARCELONA_EMC"
         
 
 
@@ -64,11 +79,11 @@ class ServicioProveedorDAC(Conexion):
         super().closeConn()
         return result
             
-    def getAllOffices(self, id): 
+    def getAllOffices(self): 
         super().initConn()
         result = []
         query = f"SELECT * FROM VW_SERVICIO_PROVEEDOR"
-        self.cursor.execute(query, id)
+        self.cursor.execute(query)
         for row in self.cursor.fetchall(): 
             result.append({
                 'id_servicio': row[0],
