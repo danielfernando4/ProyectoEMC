@@ -24,7 +24,11 @@
 
             <script class="conficional">
             </script>
+            {% if modo == '01'%}
             <p class="oficina">Oficina Madrid</p>
+            {% elif modo == '02'%}
+            <p class="oficina">Oficina Barcelona</p>
+            {% endif %}
         </header>
 
         <div class="side-main">
