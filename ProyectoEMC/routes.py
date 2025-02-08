@@ -208,6 +208,8 @@ def rutas(app):
                 'estado_contrato': request.form.get('estado_contrato'),
             }
 
+            print(contrato)
+
             if accion == "agregar":
                 contratoDAC.add(contrato)
             elif accion == "actualizar":
@@ -258,6 +260,7 @@ def rutas(app):
                 'correo_emp': request.form.get('correo_emp'),
             }
 
+            print(empleado)
             if accion == "agregar":
                 empleadoDAC.add(empleado)
             elif accion == "actualizar":
