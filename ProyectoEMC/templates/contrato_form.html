@@ -6,24 +6,15 @@
 
 {% block title%} Contrato Formulario {% endblock %}
 
-
 {% block content%}
-
 <div class="form-container">
-
-
     {% if accion == 'agregar' %}
     <h2>Registrar un nuevo contrato</h2>
     {% elif accion == 'actualizar' %}
     <h2>Actualizar contrato</h2>
     {% endif %}
 
-
-
-
     <form action="{{ url_for('contratoMain') }}" method="POST">
-
-
         {% if accion == 'agregar'%}
         <div class="form-group">
             <label for="id_contrato">ID:</label>
@@ -31,12 +22,12 @@
         </div>
 
         <label for="id_contrato">Oficina:</label>
-        <select class="opciones_oficina" id="id_oficina" name="id_oficina" required>
+        <select class="opciones_oficina" id="opciones" name="ID Oficina" required>
             <option value="01">Madrid</option>
             <option value="02">Barcelona</option>
         </select>
 
-        {% elif accion == 'actualizar'%}        
+        {% elif accion == 'actualizar'%}
         <div class="form-group">
             <label for="id_contrato">ID:</label>
             <input type="text" id="id_contrato" name="id_contrato" value="{{ contrato['id_contrato'] }}" readonly>
@@ -46,82 +37,71 @@
             <input type="text" id="id_oficina" name="id_oficina" value="{{ contrato.id_oficina }}" readonly>
         </div>
         {% endif %}
-        
+
         <div class="form-group">
             <label for="id_evento">ID Evento:</label>
             <input type="text" id="id_evento" name="id_evento" value="{{ contrato.id_evento }}" required>
         </div>
-        
-        
+
         <div class="form-group">
             <label for="id_empleado">ID Empleado:</label>
             <input type="text" id="id_empleado" name="id_empleado" value="{{ contrato.id_empleado }}" required>
         </div>
-        
-        
-        
+
         <div class="form-group">
             <label for="id_cliente">ID Cliente:</label>
             <input type="text" id="id_cliente" name="id_cliente" value="{{ contrato.id_cliente }}" required>
         </div>
-        
-        
+
         <div class="form-group">
             <label for="id_servicio">ID Servicio:</label>
             <input type="text" id="id_servicio" name="id_servicio" value="{{ contrato.id_servicio }}" required>
         </div>
-        
+
         <div class="container-fecha">
             <div class="form-group">
                 <label for="fecha_inicio">Fecha de Inicio:</label>
                 <input class="form-group-fecha" type="date" id="fecha_inicio" name="fecha_inicio"
-                    value="{{ contrato.fecha_inicio }}" required>
+                value="{{ contrato.fecha_inicio if contrato.fecha_inicio else '' }}" required>
             </div>
             <div class="form-group">
                 <label for="fecha_fin">Fecha de Fin:</label>
-                <input class="form-group-fecha" type="date" id="fecha_fin" name="fecha_fin" value="{{ contrato.fecha_fin }}"
-                    required>
+                <input class="form-group-fecha" type="date" id="fecha_fin" name="fecha_fin"
+                value="{{ contrato.fecha_fin if contrato.fecha_fin else '' }}" required>
+            </div>
+            <div class="form-group">
+                <label for="hora_evento">Hora del Evento:</label>
+                <input type="time" id="hora_evento" name="hora_evento" value="{{ contrato.hora_evento }}" required>
             </div>
         </div>
-        
-        
+
         <div class="form-group">
             <label for="presupuesto">Presupuesto:</label>
             <input type="text" id="presupuesto" name="presupuesto" value="{{ contrato.presupuesto }}" required>
         </div>
-        
-        
+
         <div class="form-group">
             <label for="lugar">Lugar:</label>
             <input type="text" id="lugar" name="lugar" value="{{ contrato.lugar }}" required>
         </div>
-        
-        
-        <label for="id_contrato">Estado del Contrato:</label>
-        <select class="opciones_oficina" id="estado_contrato" name="estado_contrato" required>
+
+        <label for="id_contrato">Estado del contrato:</label>
+        <select class="opciones_oficina" id="opciones" name="estado contrato" required>
             <option value="Activo">Activo</option>
             <option value="Finalizado">Finalizado</option>
             <option value="Cancelado">Cancelado</option>
         </select>
-        
-        
-        
+
         <div class="btn-container">
-        
             <input type="hidden" name="accion" value="{{accion}}">
-        
-        
             {% if accion == 'agregar' %}
             <div>
                 <button type="submit">Registrar Datos</button>
             </div>
             {% elif accion == 'actualizar' %}
-        
-        
             <div>
                 <button type="submit">Actualizar Datos</button>
             </div>
-        
             {% endif %}
             <div>
                 <button class="btn-cancelar" onclick="history.back()">Cancelar</button>
