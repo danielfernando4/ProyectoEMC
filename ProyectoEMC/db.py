@@ -44,7 +44,7 @@ class ServicioProveedorDAC(Conexion):
                 'id_oficina': row[1],
                 'id_proveedor': row[2],
                 'descripcion_ser': row[3],
-                'precio_ser': row[4]
+                'precio_ser': round(row[4], 2)
             }
             result.append(item)
         super().closeConn()
@@ -61,7 +61,7 @@ class ServicioProveedorDAC(Conexion):
                 'id_oficina': row[1],
                 'id_proveedor': row[2],
                 'descripcion_ser': row[3],
-                'precio_ser': row[4]
+                'precio_ser': round(row[4], 2)
             })
         super().closeConn()
         return result
@@ -78,7 +78,7 @@ class ServicioProveedorDAC(Conexion):
                 'id_oficina': row[1],
                 'id_proveedor': row[2],
                 'descripcion_ser': row[3],
-                'precio_ser': row[4]
+                'precio_ser': round(row[4], 2)
             })
         super().closeConn()
         return result
@@ -253,7 +253,7 @@ class ContratoEventoDAC(Conexion):
                 'id_servicio': row[5],
                 'fecha_inicio': row[6],
                 'fecha_fin': row[7],
-                'presupuesto': row[8],
+                'presupuesto': round(row[8],2),
                 'lugar': row[9],
                 'estado_contrato': row[10]
             }
@@ -276,7 +276,7 @@ class ContratoEventoDAC(Conexion):
                 'id_servicio': row[5],
                 'fecha_inicio': row[6],
                 'fecha_fin': row[7],
-                'presupuesto': row[8],
+                'presupuesto': round(row[8],2),
                 'lugar': row[9],
                 'estado_contrato': row[10]
             }
@@ -301,7 +301,7 @@ class ContratoEventoDAC(Conexion):
                 'id_servicio': row[5],
                 'fecha_inicio': row[6],
                 'fecha_fin': row[7],
-                'presupuesto': row[8],
+                'presupuesto': round(row[8],2),
                 'lugar': row[9],
                 'estado_contrato': row[10]
             })
@@ -508,7 +508,7 @@ class NominaDAC(Conexion):
         for row in self.cursor.fetchall():
             item = {
                 'id_empleado': row[0],
-                'salario': row[1],
+                'salario': round(row[1],2),
                 'fecha_contratacion': row[2]
             }
             result.append(item)
@@ -525,7 +525,7 @@ class NominaDAC(Conexion):
         if row:
             result.append({
                 'id_empleado': row[0],
-                'salario': row[1],
+                'salario': round(row[1],2),
                 'fecha_contratacion': row[2]
             })
             return result
@@ -563,7 +563,7 @@ class EventoDAC(Conexion):
                 'id_evento': row[0],
                 'id_oficina': row[1],
                 'tipo_evento': row[2],
-                'costo_referencial': row[3]
+                'costo_referencial':round(row[3],2)
             }
             result.append(item)
         super().closeConn()
@@ -579,7 +579,7 @@ class EventoDAC(Conexion):
                 'id_evento': row[0],
                 'id_oficina': row[1],
                 'tipo_evento': row[2],
-                'costo_referencial': row[3]
+                'costo_referencial': round(row[3],2)
             }
             result.append(item)
         super().closeConn()
@@ -597,7 +597,7 @@ class EventoDAC(Conexion):
                 'id_evento': row[0],
                 'id_oficina': row[1],
                 'tipo_evento': row[2],
-                'costo_referencial': row[3]
+                'costo_referencial': round(row[3], 2)
             })
         return result
 
