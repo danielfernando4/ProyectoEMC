@@ -28,10 +28,10 @@ def rutas(app):
     def inicio():
         if request.method == 'POST':
             oficina = request.form.get("oficina")
-            session["oficina"] = oficina  # Guarda la oficina en la sesión
+            session["oficina"] = oficina  
             idoficina.id_oficina = session["oficina"]
-            print(f"Oficina seleccionada: {session['oficina']}")  # Debugging
-            return redirect(url_for("catalogoMain"))  # Redirigir a la siguiente página
+            print(f"Oficina seleccionada: {session['oficina']}")  
+            return redirect(url_for("catalogoMain"))  
 
         return render_template("inicio.html")
     
@@ -336,6 +336,7 @@ def rutas(app):
         
         if accion == "eliminar":
             proveedorDAC.delete(id)
+        
         else:                    
             proveedor = {
                 'id_proveedor': request.form.get('id_proveedor'),
@@ -343,6 +344,8 @@ def rutas(app):
                 'nombre_pro': request.form.get('nombre_pro'),
                 'especialidad_pro': request.form.get('especialidad_pro')
             }
+            
+            print(proveedor)
 
             if accion == "agregar":
                 proveedorDAC.add(proveedor)

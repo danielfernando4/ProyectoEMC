@@ -25,21 +25,25 @@
 
         {% if accion == 'agregar'%}
         <div class="form-group">
-        <label for="id_empleado">ID:</label>
-        <input type="text" id="id_empleado" name="id_empleado" value="{{ empleado.id_empleado }}" required>
+            <label for="id_empleado">ID:</label>
+            <input type="text" id="id_empleado" name="id_empleado" value="{{ empleado.id_empleado }}" required>
         </div>
-        <div class="form-group">
-        <label for="id_oficina">ID Oficina:</label>
-        <input type="text" id="id_oficina" name="id_oficina" value="{{ empleado.id_oficina }}" required>
-        </div>
+
+
+        <label for="id_contrato">Oficina:</label>
+        <select class="opciones_oficina" id="opciones" name="ID Oficina" required>
+            <option value="01">Madrid</option>
+            <option value="02">Barcelona</option>
+        </select>
         {% elif accion == 'actualizar'%}
+
         <div class="form-group">
-        <label for="id_empleado">ID:</label>
-        <input type="text" id="id_empleado" name="id_empleado" value="{{ empleado.id_empleado }}" readonly>
+            <label for="id_empleado">ID:</label>
+            <input type="text" id="id_empleado" name="id_empleado" value="{{ empleado.id_empleado }}" readonly>
         </div>
         <div class="form-group">
-        <label for="id_oficina">ID Oficina:</label>
-        <input type="text" id="id_oficina" name="id_oficina" value="{{ empleado.id_oficina }}" readonly>
+            <label for="id_oficina">ID Oficina:</label>
+            <input type="text" id="id_oficina" name="id_oficina" value="{{ empleado.id_oficina }}" readonly>
         </div>
         {% endif %}
 

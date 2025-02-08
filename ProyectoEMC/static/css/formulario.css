@@ -104,7 +104,9 @@ input:focus {
 }
 
 
-
+.opciones_oficina {
+    max-width: 150px;
+}
 
 
 
