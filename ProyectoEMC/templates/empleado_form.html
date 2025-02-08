@@ -76,12 +76,23 @@
 
 
         <div class="form-group">
-        <label for="correo_emp">Email:</label>
+        <label for="correo_emp">Correo:</label>
         <input type="email" id="correo_emp" name="correo_emp" value="{{ empleado.correo_emp }}" required>
         </div>
 
+        {% if accion == 'agregar'%}
+        <div class="form-group">
+            <label for="salario">Salario:</label>
+            <input type="text" id="salario" name="salario" value="{{ empleado.salario }}" required>
+        </div>
 
 
+        <div class="form-group">
+            <label for="fecha_contratacion">Fecha de Contratación:</label>
+            <input type="date" id="fecha_contratacion" name="fecha_contratacion"
+                value="{{ empleado.fecha_contratacion }}" required>
+        </div>
+        {% endif %}
 
         <div class="btn-container">
         

@@ -244,6 +244,8 @@ def rutas(app):
         
         if accion == "eliminar":
             empleadoDAC.delete(id)
+            empleados = empleadoDAC.getAll()
+            return render_template("empleado_main.html", empleados = empleados)
 
 
         if accion == "consultar_oficinas":
@@ -258,6 +260,8 @@ def rutas(app):
                 'cargo_emp': request.form.get('cargo_emp'),
                 'telefono_emp': request.form.get('telefono_emp'),
                 'correo_emp': request.form.get('correo_emp'),
+                'salario': float(request.form.get('salario')),
+                'fecha_contratacion': request.form.get('fecha_contratacion')
             }
 
             print(empleado)
