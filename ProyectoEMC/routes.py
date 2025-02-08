@@ -1,4 +1,5 @@
 from flask import render_template, request, redirect, url_for, session
+from datetime import datetime
 from db import * 
 
 
@@ -190,11 +191,18 @@ def rutas(app):
     def contratoForm():
         contratoDAC = ContratoEventoDAC()
         if request.method == 'POST':
-            contrato = contratoDAC.getById(request.form.get('id_contrato'))[0]
-            return render_template("contrato_form.html", contrato = contrato, accion = "actualizar")
-        
-        return render_template("contrato_form.html", contrato = None, accion = "agregar")
 
+            contrato = contratoDAC.getById(request.form.get('id_contrato'))[0]
+
+            # Convertir fechas a string para HTML
+            if contrato.get('fecha_inicio'):
+                contrato['fecha_inicio'] = contrato['fecha_inicio'].strftime('%Y-%m-%d')
+            if contrato.get('fecha_fin'):
+                contrato['fecha_fin'] = contrato['fecha_fin'].strftime('%Y-%m-%d')
+        return render_template("contrato_form.html", contrato=contrato, accion="actualizar")
+    
+
+    
     @app.route("/empleado-main", methods = ['POST', 'GET'])
     def empleadoMain():
         selected_radio = "locales"  # Valor por defecto
@@ -282,14 +290,23 @@ def rutas(app):
         empleados = nominaDAC.getAll()
         return render_template("nomina_main.html", empleados = empleados)
 
-    @app.route("/nomina-form", methods = ['POST', 'GET'])
+
+    @app.route("/nomina-form", methods=['POST', 'GET'])
     def nominaForm():
         nominaDAC = NominaDAC()
         if request.method == 'POST':
             empleado = nominaDAC.getById(request.form.get('id_empleado'))[0]
-            return render_template("nomina_form.html", empleado = empleado, accion = "actualizar")
-        
-        return render_template("nomina_form.html", empleado = None, accion = "agregar")
+
+            # Verifica y formatea las fechas si existen
+            if empleado.get('fecha_inicio'):
+                empleado['fecha_inicio'] = empleado['fecha_inicio'].strftime('%Y-%m-%d')
+            if empleado.get('fecha_fin'):
+                empleado['fecha_fin'] = empleado['fecha_fin'].strftime('%Y-%m-%d')
+
+            return render_template("nomina_form.html", empleado=empleado, accion="actualizar")
+
+        return render_template("nomina_form.html", empleado=None, accion="agregar")
+
 
     @app.route("/proveedor-main", methods = ['POST', 'GET'])
     def proveedorMain():
