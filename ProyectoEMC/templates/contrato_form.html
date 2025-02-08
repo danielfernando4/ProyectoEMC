@@ -29,10 +29,13 @@
             <label for="id_contrato">ID:</label>
             <input type="text" id="id_contrato" name="id_contrato" value="{{ contrato['id_contrato'] }}" required>
         </div>
-        <div class="form-group">
-            <label for="id_oficina">ID Oficina:</label>
-            <input type="text" id="id_oficina" name="id_oficina" value="{{ contrato.id_oficina }}" required>
-        </div>
+
+        <label for="id_contrato">Oficina:</label>
+        <select class="opciones_oficina" id="opciones" name="ID Oficina" required>
+            <option value="01">Madrid</option>
+            <option value="02">Barcelona</option>
+        </select>
+
         {% elif accion == 'actualizar'%}        
         <div class="form-group">
             <label for="id_contrato">ID:</label>
@@ -94,10 +97,12 @@
         </div>
         
         
-        <div class="form-group">
-            <label for="estado_contrato">Estado del Contrato:</label>
-            <input type="text" id="estado_contrato" name="estado_contrato" value="{{ contrato.estado_contrato }}" required>
-        </div>
+        <label for="id_contrato">Estado del contrato:</label>
+        <select class="opciones_oficina" id="opciones" name="estado contrato" required>
+            <option value="Activo">Activo</option>
+            <option value="Finalizado">Finalizado</option>
+            <option value="Cancelado">Cancelado</option>
+        </select>
         
         
         
