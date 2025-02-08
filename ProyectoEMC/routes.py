@@ -177,8 +177,6 @@ def rutas(app):
                 'estado_contrato': request.form.get('estado_contrato'),
             }
 
-            print(contrato)
-
             if accion == "agregar":
                 contratoDAC.add(contrato)
                 print(contrato)
