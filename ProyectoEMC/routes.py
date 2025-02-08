@@ -49,38 +49,6 @@ def rutas(app):
         return render_template("base.html")
 
 
-    # #nuestros endpoints
-    # @app.route("/catalogo-main", methods = ['POST', 'GET'])
-    # def catalogoMain():
-    #     eventoDAC = EventoDAC()
-    #     if request.method == 'GET':
-    #         eventos = eventoDAC.getAll()
-    #         return render_template("catalogo_main.html", eventos = eventos)
-        
-    #     accion = request.form.get('accion')
-    #     id = request.form.get('id')
-        
-    #     if accion == "consultar_oficinas":
-    #         eventos = eventoDAC.getAllOffices()
-    #         return render_template("catalogo_main.html", eventos = eventos)           
-        
-    #     if accion == "eliminar":
-    #         eventoDAC.delete(id)
-    #     else:                    
-    #         evento = {
-    #             'id_evento': request.form.get('id_evento'),
-    #             'id_oficina': request.form.get('id_oficina'),
-    #             'tipo_evento': request.form.get('tipo_evento'),
-    #             'costo_referencial': float(request.form.get('costo_referencial'))
-    #         }
-
-    #         if accion == "agregar":
-    #             eventoDAC.add(evento)
-    #         elif accion == "actualizar":
-    #             eventoDAC.update(evento) 
-                
-    #     eventos = eventoDAC.getAll()
-    #     return render_template("catalogo_main.html", eventos = eventos)
     @app.route("/catalogo-main", methods=['POST', 'GET'])
     def catalogoMain():
         eventoDAC = EventoDAC()
@@ -183,11 +151,12 @@ def rutas(app):
         
         if accion == "buscar":
              contratos = contratoDAC.getById(id) if id else contratoDAC.getAll()
-             return render_template("contrato_main.html", contratos = contratos)         
-        
+             return render_template("contrato_main.html", contratos = contratos)        
+         
         if accion == "eliminar":
             contratoDAC.delete(id)
-
+            contratos = contratoDAC.getAll()
+            return render_template("contrato_main.html", contratos = contratos)
 
 
         if accion == "consultar_oficinas":
@@ -210,6 +179,7 @@ def rutas(app):
 
             if accion == "agregar":
                 contratoDAC.add(contrato)
+                print(contrato)
             elif accion == "actualizar":
                 contratoDAC.update(contrato) 
                 
@@ -264,6 +234,7 @@ def rutas(app):
 
             if accion == "agregar":
                 empleadoDAC.add(empleado)
+                print(empleado)
             elif accion == "actualizar":
                 empleadoDAC.update(empleado) 
                 
