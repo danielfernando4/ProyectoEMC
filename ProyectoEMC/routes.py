@@ -171,12 +171,13 @@ def rutas(app):
                 'id_empleado': request.form.get('id_empleado'),
                 'id_cliente': request.form.get('id_cliente'),
                 'id_servicio': request.form.get('id_servicio'),
-                'fecha_inicio': request.form.get('fecha_inicio'),
-                'fecha_fin': request.form.get('fecha_fin'),
+                'fecha_inicio': datetime.strptime(request.form.get('fecha_inicio'), "%Y-%m-%dT%H:%M"),
+                'fecha_fin': datetime.strptime(request.form.get('fecha_fin'), "%Y-%m-%dT%H:%M"),
                 'presupuesto': float(request.form.get('presupuesto')),
                 'lugar': request.form.get('lugar'),
                 'estado_contrato': request.form.get('estado_contrato'),
             }
+            print (contrato)
 
             if accion == "agregar":
                 contratoDAC.add(contrato)
@@ -193,14 +194,9 @@ def rutas(app):
         if request.method == 'POST':
 
             contrato = contratoDAC.getById(request.form.get('id_contrato'))[0]
-
-            # Convertir fechas a string para HTML
-            if contrato.get('fecha_inicio'):
-                contrato['fecha_inicio'] = contrato['fecha_inicio'].strftime('%Y-%m-%d')
-            if contrato.get('fecha_fin'):
-                contrato['fecha_fin'] = contrato['fecha_fin'].strftime('%Y-%m-%d')
-        return render_template("contrato_form.html", contrato=contrato, accion="actualizar")
-    
+            return render_template("contrato_form.html", contrato=contrato, accion = "actualizar")
+            
+        return render_template("contrato_form.html", contrato = None, accion="actualizar")
 
     
     @app.route("/empleado-main", methods = ['POST', 'GET'])
