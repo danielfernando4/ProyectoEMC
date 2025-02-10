@@ -62,12 +62,12 @@
             <div class="form-group">
                 <label for="fecha_inicio">Fecha de Inicio:</label>
                 <input class="form-group-fecha" type="datetime-local" id="fecha_inicio" name="fecha_inicio"
-                value="{{ contrato.fecha_inicio.strftime('%Y-%m-%dT%H:%M') }}" required>
+                value="{{ contrato.fecha_inicio.strftime('%Y-%m-%dT%H:%M') if contrato else '' }}" required>
             </div>
             <div class="form-group">
                 <label for="fecha_fin">Fecha de Fin:</label>
                 <input class="form-group-fecha" type="datetime-local" id="fecha_fin" name="fecha_fin"
-                value="{{ contrato.fecha_fin.strftime('%Y-%m-%dT%H:%M') }}" required>
+                value="{{ contrato.fecha_fin.strftime('%Y-%m-%dT%H:%M') if contrato else '' }}" required>
             </div>
         </div>
 
@@ -82,7 +82,7 @@
         </div>
 
         <label for="id_contrato">Estado del contrato:</label>
-        <select class="opciones_oficina" id="opciones" name="estado contrato" required>
+        <select class="opciones_oficina" id="opciones" name="estado_contrato" required>
             <option value="Activo">Activo</option>
             <option value="Finalizado">Finalizado</option>
             <option value="Cancelado">Cancelado</option>
