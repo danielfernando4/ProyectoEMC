@@ -196,7 +196,7 @@ def rutas(app):
             contrato = contratoDAC.getById(request.form.get('id_contrato'))[0]
             return render_template("contrato_form.html", contrato=contrato, accion = "actualizar")
             
-        return render_template("contrato_form.html", contrato = None, accion="actualizar")
+        return render_template("contrato_form.html", contrato = None, accion="agregar")
 
     
     @app.route("/empleado-main", methods = ['POST', 'GET'])
